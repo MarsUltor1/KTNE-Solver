@@ -127,8 +127,164 @@
                 #region Decrypt Word
                 while (!decrypted)
                 {
+                    // Get Word on Button
                     Console.Write("Word: ");
-                    string decrypt = 
+                    string decrypt = Console.ReadLine().ToLower();
+
+                    // Get String of Words
+                    switch(decrypt)
+                    {
+                        case "blank":
+                            Console.WriteLine("WAIT, RIGHT, OKAY, MIDDLE, BLANK");
+                            decrypted = true;
+                            stage += 1;
+                            located = false;
+                            break;
+
+                        case "done":
+                                    print("SURE, UH HUH, NEXT, WHAT? YOUR, UR, YOU'RE, HOLD, LIKE, YOU, U, YOU ARE, UH UH, DONE")
+                            decrypted = True
+                            stage += 1
+                            located = False
+                        case "first":
+                                    print("LEFT, OKAY, YES, MIDDLE, NO, RIGHT, NOTHING, UHHH, WAIT, READY, BLANK, WHAT, PRESS, FIRST")
+                            decrypted = True
+                            stage += 1
+                            located = False
+                        case "hold":
+                                    print("YOU ARE, U, DONE, UH UH, YOU, UR, SURE, WHAT?, YOU'RE, NEXT, HOLD")
+                            decrypted = True
+                            stage += 1
+                            located = False
+                        case "left":
+                                    print("RIGHT, LEFT")
+                            decrypted = True
+                            stage += 1
+                            located = False
+                        case "like":
+                                    print("YOU'RE, NEXT, U, UR, HOLD, DONE, UH UH, WHAT?, UH HUH, YOU, LIKE")
+                            decrypted = True
+                            stage += 1
+                            located = False
+                        case "middle":
+                                    print("BLANK, READY, OKAY, WHAT, NOTHING, PRESS, NO, WAIT, LEFT, MIDDLE")
+                            decrypted = True
+                            stage += 1
+                            located = False
+                        case "next":
+                                    print("WHAT?, UH HUH, UH UH, YOUR, HOLD, SURE, NEXT")
+                            decrypted = True
+                            stage += 1
+                            located = False
+                        case "no":
+                                    print("BLANK, UHHH, WAIT, FIRST, WHAT, READY, RIGHT, YES, NOTHING, LEFT, PRESS, OKAY, NO")
+                            decrypted = True
+                            stage += 1
+                            located = False
+                        case "nothing":
+                                    print("UHHH, RIGHT, OKAY, MIDDLE, YES, BLANK, NO, PRESS, LEFT, WHAT, WAIT, FIRST, NOTHING")
+                            decrypted = True
+                            stage += 1
+                            located = False
+                        case "okay":
+                                    print("MIDDLE, NO, FIRST, YES, UHHH, NOTHING, WAIT, OKAY")
+                            decrypted = True
+                            stage += 1
+                            located = False
+                        case "press":
+                                    print("RIGHT, MIDDLE, YES, READY, PRESS")
+                            decrypted = True
+                            stage += 1
+                            located = False
+                        case "ready":
+                                    print("YES, OKAY, WHAT, MIDDLE, LEFT, PRESS, RIGHT, BLANK, READY")
+                            decrypted = True
+                            stage += 1
+                            located = False
+                        case "right":
+                                    print("YES, NOTHING, READY, PRESS, NO, WAIT, WHAT, RIGHT")
+                            decrypted = True
+                            stage += 1
+                            located = False
+                        case "sure":
+                                    print("YOU ARE, DONE, LIKE, YOU'RE, YOU, HOLD, UH HUH, UR, SURE")
+                            decrypted = True
+                            stage += 1
+                            located = False
+                        case "u":
+                                    print("UH HUH, SURE, NEXT, WHAT?, YOU'RE, UR, UH UH, DONE, U")
+                            decrypted = True
+                            stage += 1
+                            located = False
+                        case "uh huh":
+                                    print("UH HUH")
+                            decrypted = True
+                            stage += 1
+                            located = False
+                        case "uh uh":
+                                    print("UR, U, YOU ARE, YOU'RE, NEXT, UH UH")
+                            decrypted = True
+                            stage += 1
+                            located = False
+                        case "uhhh":
+                                    print("READY, NOTHING, LEFT, WHAT, OKAY, YES, RIGHT, NO, PRESS, BLANK, UHHH")
+                            decrypted = True
+                            stage += 1
+                            located = False
+                        case "ur":
+                                    print("DONE, U, UR")
+                            decrypted = True
+                            stage += 1
+                            located = False
+                        case "wait":
+                                    print("UHHH, NO, BLANK, OKAY, YES, LEFT, FIRST, PRESS, WHAT, WAIT")
+                            decrypted = True
+                            stage += 1
+                            located = False
+                        case "what":
+                                    print("UHHH, WHAT")
+                            decrypted = True
+                            stage += 1
+                            located = False
+                        case "what?":
+                                    print("YOU, HOLD, YOU'RE. YOUR, U, DONE, UH UH, LIKE, YOU ARE, UH HUH, UR, NEXT, WHAT?")
+                            decrypted = True
+                            stage += 1
+                            located = False
+                        case "yes":
+                                    print("OKAY, RIGHT, UHHH, MIDDLE, FIRST, WHAT, PRESS, READY, NOTHING, YES")
+                            decrypted = True
+                            stage += 1
+                            located = False
+                        case "you":
+                                    print("SURE, YOU ARE, YOUR, YOU'RE, NEXT, UH HUH, UR, HOLD, WHAT?, YOU")
+                            decrypted = True
+                            stage += 1
+                            located = False
+                        case "you are":
+                                    print("YOUR, NEXT, LIKE, UH HUH, WHAT?, DONE, UH UH, HOLD, YOU, U, YOU'RE, SURE, UR, YOU ARE")
+                            decrypted = True
+                            stage += 1
+                            located = False
+                        case "you're":
+                                    print("YOU, YOU'RE")
+                            decrypted = True
+                            stage += 1
+                            located = False
+                        case "your":
+                                    print("UH UH, YOU ARE, UH HUH, YOUR")
+                            decrypted = True
+                            stage += 1
+                            located = False
+                        case _:
+                                    print("ERROR: CHECK SPELLING. ENTER [X] TO QUIT. ENTER ANYTHING ELSE TO CONTINUE.")
+                            cont = input()
+                            cont = cont.lower()
+
+                            if cont == "x":
+                                decrypted = True
+                                stage = 4
+                    }
                 }
                 #endregion
             }
