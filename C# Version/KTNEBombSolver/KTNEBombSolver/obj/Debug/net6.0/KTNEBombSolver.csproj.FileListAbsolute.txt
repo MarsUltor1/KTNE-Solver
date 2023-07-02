@@ -1,0 +1,15 @@
+C:\Users\marsa\Desktop\KTNEBombSolver\KTNEBombSolver\bin\Debug\net6.0\KTNEBombSolver.exe
+C:\Users\marsa\Desktop\KTNEBombSolver\KTNEBombSolver\bin\Debug\net6.0\KTNEBombSolver.deps.json
+C:\Users\marsa\Desktop\KTNEBombSolver\KTNEBombSolver\bin\Debug\net6.0\KTNEBombSolver.runtimeconfig.json
+C:\Users\marsa\Desktop\KTNEBombSolver\KTNEBombSolver\bin\Debug\net6.0\KTNEBombSolver.dll
+C:\Users\marsa\Desktop\KTNEBombSolver\KTNEBombSolver\bin\Debug\net6.0\KTNEBombSolver.pdb
+C:\Users\marsa\Desktop\KTNEBombSolver\KTNEBombSolver\obj\Debug\net6.0\KTNEBombSolver.csproj.AssemblyReference.cache
+C:\Users\marsa\Desktop\KTNEBombSolver\KTNEBombSolver\obj\Debug\net6.0\KTNEBombSolver.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\marsa\Desktop\KTNEBombSolver\KTNEBombSolver\obj\Debug\net6.0\KTNEBombSolver.AssemblyInfoInputs.cache
+C:\Users\marsa\Desktop\KTNEBombSolver\KTNEBombSolver\obj\Debug\net6.0\KTNEBombSolver.AssemblyInfo.cs
+C:\Users\marsa\Desktop\KTNEBombSolver\KTNEBombSolver\obj\Debug\net6.0\KTNEBombSolver.csproj.CoreCompileInputs.cache
+C:\Users\marsa\Desktop\KTNEBombSolver\KTNEBombSolver\obj\Debug\net6.0\KTNEBombSolver.dll
+C:\Users\marsa\Desktop\KTNEBombSolver\KTNEBombSolver\obj\Debug\net6.0\refint\KTNEBombSolver.dll
+C:\Users\marsa\Desktop\KTNEBombSolver\KTNEBombSolver\obj\Debug\net6.0\KTNEBombSolver.pdb
+C:\Users\marsa\Desktop\KTNEBombSolver\KTNEBombSolver\obj\Debug\net6.0\KTNEBombSolver.genruntimeconfig.cache
+C:\Users\marsa\Desktop\KTNEBombSolver\KTNEBombSolver\obj\Debug\net6.0\ref\KTNEBombSolver.dll
