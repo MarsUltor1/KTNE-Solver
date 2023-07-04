@@ -679,12 +679,7 @@ def morse():
             print(bank)
 
 def symbols():
-    try:
-        from PIL import Image
-        img = Image.open("symbols.jpg")
-        img.show()
-    except ModuleNotFoundError:
-        print("ERROR: DEFUSER MISSING \"Pillow\" PYTHON MODULE CRITICAL TO THIS FUNCTION. PLEASE RUN \"pip install Pillow\" TO RECTIFY ISSUE.")
+    import symbols
     
 def vent():
     print("REPLY NO TO DETONATE, YES TO VENT GAS.")
