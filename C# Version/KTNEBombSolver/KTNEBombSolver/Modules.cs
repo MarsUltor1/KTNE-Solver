@@ -303,5 +303,24 @@ namespace KTNEBombSolver
                 #endregion
             }
         }
+
+        /// <summary>
+        /// Solve "Simple Wires" Module
+        /// </summary>
+        static void SWires()
+        {
+            // Get all wires
+            Console.Write("\nEnter Every Wire Color: ");
+            string wireString = Console.ReadLine().ToLower();
+
+            // Add wires to list
+            List<string> wires = new List<string>();
+            wires.AddRange(wireString.Split(new char[] { ' ' }));
+
+            for (int i = 0; i < wires.Count; i++)
+            {
+                Console.WriteLine(wires[i]);
+            }
+        }
     }
 }

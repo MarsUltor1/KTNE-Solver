@@ -9,7 +9,8 @@
             int numBatteries = 0;
 
             // Introduce the player
-            Console.WriteLine("Welcome To Bombsolver\nPlease fill out basic information and continue to the solver\n\n----------------------------------------");
+            Console.WriteLine("Welcome To Bombsolver\nPlease fill out basic information and continue to the solver");
+            Console.WriteLine("\n----------------------------------------");
 
             // run config
             Config(ref serialNumber, ref numBatteries);
@@ -27,6 +28,10 @@
                 {
                     case "whos on first":
                         Modules.WhosOnFirst();
+                        break;
+
+                    case "simple wires":
+                        Modules.SWires();
                         break;
 
                     case "quit":
