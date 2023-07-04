@@ -31,7 +31,7 @@
                         break;
 
                     case "simple wires":
-                        Modules.SWires();
+                        Modules.SWires(serialNumber);
                         break;
 
                     case "quit":

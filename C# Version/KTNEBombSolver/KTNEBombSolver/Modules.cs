@@ -308,7 +308,7 @@ namespace KTNEBombSolver
         /// <summary>
         /// Solve "Simple Wires" Module
         /// </summary>
-        static void SWires()
+        static void SWires(string sn)
         {
 
             List<string> wires = new List<string>();
@@ -355,7 +355,7 @@ namespace KTNEBombSolver
             {
                 switch (wires.Count)
                 {
-                    case 3:
+                    case 3: // Solve for 3 wires
                         if (!wires.Contains("red"))
                             Console.WriteLine("Cut Second Wire");
                         else if (wires[2] == "white")
@@ -366,13 +366,25 @@ namespace KTNEBombSolver
                             Console.WriteLine("Cut Last Wire");
                         break;
 
-                    case 4:
+                    case 4: // Solve for 4 wires
+                        int lastSerial;
+                        int.TryParse(sn.Last().ToString(), out lastSerial);
+                        if (wires.IndexOf("red") != wires.LastIndexOf("red") && (lastSerial % 2) != 0)
+                            Console.WriteLine("Cut Last Wire");
+                        else if (wires.Last() == "yellow" && !wires.Contains("red"))
+                            Console.WriteLine("Cut First Wire");
+                        else if (wires.Contains("blue") && wires.IndexOf("blue") == wires.LastIndexOf("blue"))
+                            Console.WriteLine("Cut First Wire");
+                        else if (wires.IndexOf("yellow") != wires.LastIndexOf("yellow"))
+                            Console.WriteLine("Cut Last Wire");
+                        else
+                            Console.WriteLine("Cut Second Wire");
                         break;
 
-                    case 5:
+                    case 5: // Solve for 5 wires
                         break;
 
-                    case 6:
+                    case 6: // Solve for 6 wires
                         break;
                 }
             }
