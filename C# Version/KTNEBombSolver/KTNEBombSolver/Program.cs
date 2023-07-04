@@ -7,6 +7,7 @@
             string userIn = "";
             string serialNumber = "";
             int numBatteries = 0;
+            string commands = "whos on first | simple wires | quit";
 
             // Introduce the player
             Console.WriteLine("Welcome To Bombsolver\nPlease fill out basic information and continue to the solver");
@@ -20,7 +21,8 @@
             {
                 // Get input
                 Console.WriteLine("----------------------------------------\n\n\n----------------------------------------");
-                Console.Write("Please enter a command: ");
+                Console.WriteLine("The available commands are:\n" + commands);
+                Console.Write("\nPlease enter a command: ");
                 userIn = Console.ReadLine().ToLower();
 
                 // Run correct function
@@ -36,6 +38,7 @@
 
                     case "quit":
                         Console.WriteLine("Thank you for playing! Come again.");
+                        Console.WriteLine("----------------------------------------");
                         break;
                     default:
                         Console.WriteLine("Invalid Command, Please try Again");

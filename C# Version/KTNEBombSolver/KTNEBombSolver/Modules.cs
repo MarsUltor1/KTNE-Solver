@@ -361,7 +361,7 @@ namespace KTNEBombSolver
                     case 3: // Solve for 3 wires
                         if (!wires.Contains("red"))
                             Console.WriteLine("Cut Second Wire");
-                        else if (wires[2] == "white")
+                        else if (wires[wires.Count() - 1] == "white")
                             Console.WriteLine("Cut Last Wire");
                         else if (wires.IndexOf("blue") != wires.LastIndexOf("blue"))
                             Console.WriteLine("Cut Last Blue Wire");
@@ -383,6 +383,15 @@ namespace KTNEBombSolver
                         break;
 
                     case 5: // Solve for 5 wires
+                        if (wires[wires.Count() - 1] == "black" && lastSerial % 2 != 0)
+                            Console.WriteLine("Cut Fourth Wire");
+                        else if (wires.Contains("red") && wires.IndexOf("red") == wires.LastIndexOf("red")
+                            && wires.IndexOf("yellow") != wires.LastIndexOf("yellow"))
+                            Console.WriteLine("Cut First Wire");
+                        else if (!wires.Contains("black"))
+                            Console.WriteLine("Cut Second Wire");
+                        else
+                            Console.WriteLine("Cut First Wire");
                         break;
 
                     case 6: // Solve for 6 wires
