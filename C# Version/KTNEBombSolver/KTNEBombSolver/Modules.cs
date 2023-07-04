@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -68,7 +69,7 @@ namespace KTNEBombSolver
                     }
                     else
                     {
-                        Console.WriteLine("ERROR: Invalid Word, Try Again. Enter [X] To Quit. Enter [C] to continue.");
+                        Console.WriteLine("ERROR: Invalid Word, Try Again. Enter [C] to continue or [X] To Quit.");
                         string cont = Console.ReadLine().ToLower();
 
                         if (cont == "x")
@@ -288,7 +289,7 @@ namespace KTNEBombSolver
                             break;
 
                         default:
-                            Console.WriteLine("ERROR: Invalid Word, Try Again. Enter [X] To Quit. Enter [C] to continue.");
+                            Console.WriteLine("ERROR: Invalid Word, Try Again. Enter [C] to continue or [X] To Quit.");
                             string cont = Console.ReadLine().ToLower();
 
                             if (cont == "x")
@@ -309,18 +310,73 @@ namespace KTNEBombSolver
         /// </summary>
         static void SWires()
         {
-            // Get all wires
-            Console.Write("\nEnter Every Wire Color: ");
-            string wireString = Console.ReadLine().ToLower();
 
-            // Add wires to list
             List<string> wires = new List<string>();
-            wires.AddRange(wireString.Split(new char[] { ' ' }));
+            bool quit = false;
 
-            for (int i = 0; i < wires.Count; i++)
+            #region Input Wires
+            while (true && !quit)
             {
-                Console.WriteLine(wires[i]);
+                // Get all wires
+                Console.Write("\nEnter Every Wire Color: ");
+                string wireString = Console.ReadLine().ToLower();
+
+                // Add wires to list
+                wires.Clear();
+                wires.AddRange(wireString.Split(new char[] { ' ' }));
+
+                // Check for correct number of wires
+                if (wires.Count < 3 || wires.Count > 6)
+                {
+                    Console.WriteLine("ERROR: Invalid number of wires, enter between 3 and 6 colors. Enter [C] to continue or [X] To Quit.");
+                    continue;
+                }
+
+                // Check for correct colors of wires
+                for (int i = 0; i < wires.Count; i++)
+                {
+                    if (wires[i] != "yellow" || wires[i] != "red" || wires[i] != "blue" ||
+                        wires[i] != "black" || wires[i] != "white")
+                    {
+                        Console.WriteLine($"ERROR: Invalid wire color, {wires[i]} is not a valid color. Enter [C] to continue or [X] To Quit.");
+                        string cont = Console.ReadLine().ToLower();
+                        if (cont == "x") quit = true;
+                        continue;
+                    }
+                }
+
+                break;
             }
+            #endregion
+
+            #region Solve Wires
+            // Check if module was quit
+            if ( !quit )
+            {
+                switch (wires.Count)
+                {
+                    case 3:
+                        if (!wires.Contains("red"))
+                            Console.WriteLine("Cut Second Wire");
+                        else if (wires[2] == "white")
+                            Console.WriteLine("Cut Last Wire");
+                        else if (wires.IndexOf("blue") != wires.LastIndexOf("blue"))
+                            Console.WriteLine("Cut Last Blue Wire");
+                        else
+                            Console.WriteLine("Cut Last Wire");
+                        break;
+
+                    case 4:
+                        break;
+
+                    case 5:
+                        break;
+
+                    case 6:
+                        break;
+                }
+            }
+            #endregion
         }
     }
 }
