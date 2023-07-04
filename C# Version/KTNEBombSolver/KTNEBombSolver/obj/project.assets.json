@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\marsa\\Desktop\\Bomb-Solver\\C# Version\\KTNEBombSolver\\KTNEBombSolver\\KTNEBombSolver.csproj",
+      "projectUniqueName": "C:\\Users\\marsa\\Desktop\\KTNE-Solver\\C# Version\\KTNEBombSolver\\KTNEBombSolver\\KTNEBombSolver.csproj",
       "projectName": "KTNEBombSolver",
-      "projectPath": "C:\\Users\\marsa\\Desktop\\Bomb-Solver\\C# Version\\KTNEBombSolver\\KTNEBombSolver\\KTNEBombSolver.csproj",
+      "projectPath": "C:\\Users\\marsa\\Desktop\\KTNE-Solver\\C# Version\\KTNEBombSolver\\KTNEBombSolver\\KTNEBombSolver.csproj",
       "packagesPath": "C:\\Users\\marsa\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\marsa\\Desktop\\Bomb-Solver\\C# Version\\KTNEBombSolver\\KTNEBombSolver\\obj\\",
+      "outputPath": "C:\\Users\\marsa\\Desktop\\KTNE-Solver\\C# Version\\KTNEBombSolver\\KTNEBombSolver\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
