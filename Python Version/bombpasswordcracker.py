@@ -2,6 +2,7 @@ serial_number = ""
 num_batteries = 0
 
 def config():
+    #This function updates the global variables for serial number and number of batteries. Since these parameters are fairly common questions, I have created the option to preconfigure them.
     global serial_number 
     serial_number = input("SERIAL NUMBER: ").lower()
     global num_batteries 
@@ -10,15 +11,23 @@ def config():
     print(f"NUMBER OF BATTERIES UPDATED TO: {num_batteries}")
 
 def password_cracker():
-    third_column = input("Enter all letters from the third column: ")
+    #User input statements, it is required for the user to put spaces between characters. e.g. 'abcdef' invalid. 'a b c d e f' valid.
+    third_column = input("Enter all letters from the third column: ").lower()
     third_column = third_column.split()
 
-    fifth_column = input("Enter all letters from the fifth column: ")
+    #The split statements splits the user-input string into a list using blankspaces as the discriminator.
+    fifth_column = input("Enter all letters from the fifth column: ").lower()
     fifth_column = fifth_column.split()
 
+    #Outermost for loop iterates through the third column list, checking for specific letters.
     for i in range(len(third_column)):
+        
         if third_column[i] == "a":
+
+            #If certain letters are found in the third column, a similar loop then iterates through the fifth column list.
             for j in range(len(fifth_column)):
+
+                #If a certain letter is then found in the fifth column, print the potential solution.
                 if fifth_column[j] == "e":
                     print("place")
                 elif fifth_column[j] == "l":
@@ -29,7 +38,9 @@ def password_cracker():
                     print("plant")
 
         elif third_column[i] == "e":
+
             for j in range(len(fifth_column)):
+
                 if fifth_column[j] == "e":
                     print("there, these, or where")
                 elif fifth_column[j] == "l":
@@ -42,17 +53,23 @@ def password_cracker():
                     print("every")
 
         elif third_column[i] == "g":
+
             for j in range(len(fifth_column)):
+
                 if fifth_column[j] == "t":
                     print("right")
 
         elif third_column[i] == "h":
+
             for j in range(len(fifth_column)):
+
                 if fifth_column[j] == "r":
                     print("other")
     
         elif third_column[i] == "i":
+
             for j in range(len(fifth_column)):
+
                 if fifth_column[j] == "e":
                     print("write")
                 elif fifth_column[j] == "g":
@@ -67,17 +84,23 @@ def password_cracker():
                     print("point")
 
         elif third_column[i] == "l":
+
             for j in range(len(fifth_column)):
+
                 if fifth_column[j] == "w":
                     print("below")
 
         elif third_column[i] == "o":
+
             for j in range(len(fifth_column)):
+
                 if fifth_column[j] == "t":
                     print("about")
         
         elif third_column[i] == "r":
+
             for j in range(len(fifth_column)):
+
                 if fifth_column[j] == "d":
                     print("world")
                 elif fifth_column[j] == "e":
@@ -86,12 +109,16 @@ def password_cracker():
                     print("first")
 
         elif third_column[i] == "t":
+
             for j in range(len(fifth_column)):
+
                 if fifth_column[j] == "r":
                     print("after, or water")
 
         elif third_column[i] == "u":
+
             for j in range(len(fifth_column)):
+
                 if fifth_column[j] == "d":
                     print("could, found, sound, or would")
                 elif fifth_column[j] == "e":
@@ -100,19 +127,26 @@ def password_cracker():
                     print("study")
 
         elif third_column[i] == "v":
+
             for j in range(len(fifth_column)):
+
                 if fifth_column[j] == "r":
                     print("never")
 
+        #This approach only narrows down the potential solutions. The defuser will have to look at the other columns to further narrow down the actual answer.
+
 def maze_solver():
 
+    #This open statement opens my txt file to display ASCII art mazes. It opens the file, then creates a list using commas as a discriminator.
     with open('mazeart.txt') as art_file:
         maze_list = art_file.read().split(",")
 
+    #Display the blank maze to familiarize a user with the coordinate system. Then, display basic info.
     print(maze_list[0])
     print("FOR COORDINATES, DO NOT USE PARENTHESIS. JUST LIST NUMBERS. I.E. (1,5), (6,4) SHOULD BE '1564'. ORDER OF COORDINATES DO NOT MATTER.")
     ident = input("COORDINATES OF IDENTIFYING CIRCLES: ")
     
+    #Armed with the player input, match the coordinates to the maze.
     match ident:
         case "1564" | "6415":
             print(maze_list[1])
@@ -135,16 +169,25 @@ def maze_solver():
         case _:
             print("Invalid coordinates, try again.")
 
+    #It is up to the expert to guide the defuser through the maze. It'd take an AI to do the rest.
+
 def whos_on_first():
+    #local variable bank.
     located = False
     decrypted = False
     stage = 1
+
+    #Self explanatory while loop. And no, I don't think a zero index is appropriate here.
     while stage <= 3:
+
+        #This first loop will not let you go until you enter a word that works, or the exit command. If you fuck up and type 'yse', it'll default to case_.
         while located == False:
             locate = input("\nWORD ON DISPLAY: ")
-            locate = locate.lower()
+            locate = locate.lower()                 #Sidenote, all input should be .lower() to ensure homogenity of input.
 
             match locate:
+
+                #Upon inputting a correct word, the user is told what to read, and the variables are toggled to move to phase two.
                 case "" | "leed" | "reed" | "they're":
                     print("BOTTOM LEFT.")
                     located = True
@@ -169,6 +212,8 @@ def whos_on_first():
                     print("UPPER RIGHT.")
                     located = True
                     decrypted = False
+
+                #Default case to catch user input error
                 case _:
                     print("ERROR: CHECK SPELLING. ENTER [X] TO QUIT. ENTER ANYTHING ELSE TO CONTINUE.")
                     cont = input()
@@ -179,10 +224,14 @@ def whos_on_first():
                         decrypted = True
                         stage = 4
 
-        while decrypted == False:                
+        #Phase two starts here.
+        #This second loop is similar to the first, it won't let you go until you enter something valid or the exit command. 
+        while decrypted == False:
+
             decrypt = input("WORD: ")
             decrypt = decrypt.lower()
 
+            #Similar structure as phase one as well.
             match decrypt:
                 case "blank":
                     print("WAIT, RIGHT, OKAY, MIDDLE, BLANK")
@@ -334,10 +383,46 @@ def whos_on_first():
                         stage = 4
 
 def memory_game():
+    """
+    So, an array is created to memorize everything. Every round, the program first asks what the screen displays.
+    Upon being told what is on the screen, the program will tell you what button to press.
+    On the same line, it will ask you what the label/position is, as that info is relevant to later rounds.
+    The user needs to be careful not to accidently hit enter, as there are no failsafes here.
+
+    Once the user inputs the label/position, the program stores the data as a tuple in the 'memory' list.
+    Tuple structure is (label, position).
+
+    e.g. The screen initially displays a 1.
+        PRESS BUTTON IN POSITION 2. LABELED: 4  --> memory at this point is [(4,2)]
+        The screen displays a 3.
+        PRESS BUTTON IN POSITION 1. LABELED: 2 --> memory at this point is [(4,2),(2,1)]
+
+    Let us rewind. Instead of the screen displaying a 3 on round two, what if:
+        The screen displays a 2.
+        "PRESS BUTTON IN POSITION {memory[0][1]}. LABELED: ?
+        This f string reads what this ^ is, and auto formats it into a string. Pretty cool stuff.
+
+        Remember, memory looks like [(4,2)] at this point.
+        memory[0] = (4,2)
+
+        Now we need to pick the part of the tuple that corresponds to the position, NOT label. Therefore,
+        memory[0][1] = 2.
+
+        f string auto formats, so what the user actually sees (in this case):
+        PRESS BUTTON IN POSITION 2. LABELED:
+
+        Simple.
+    """
+
+    #Another local variable bank.
     memory = []
     stage = 1
+
+    #Another outer loop that isn't zero indexed.
     while stage <= 5:
+
         query = input("\nDISPLAYED NUMBER: ")
+
         if stage == 1:
             match query:
                 case "1" | "2":
@@ -679,12 +764,7 @@ def morse():
             print(bank)
 
 def symbols():
-    try:
-        from PIL import Image
-        img = Image.open("symbols.jpg")
-        img.show()
-    except ModuleNotFoundError:
-        print("ERROR: DEFUSER MISSING \"Pillow\" PYTHON MODULE CRITICAL TO THIS FUNCTION. PLEASE RUN \"pip install Pillow\" TO RECTIFY ISSUE.")
+    import symbols
     
 def vent():
     print("REPLY NO TO DETONATE, YES TO VENT GAS.")
