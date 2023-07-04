@@ -353,6 +353,9 @@ namespace KTNEBombSolver
             // Check if module was quit
             if ( !quit )
             {
+                int lastSerial;
+                int.TryParse(sn.Last().ToString(), out lastSerial);
+
                 switch (wires.Count)
                 {
                     case 3: // Solve for 3 wires
@@ -367,9 +370,7 @@ namespace KTNEBombSolver
                         break;
 
                     case 4: // Solve for 4 wires
-                        int lastSerial;
-                        int.TryParse(sn.Last().ToString(), out lastSerial);
-                        if (wires.IndexOf("red") != wires.LastIndexOf("red") && (lastSerial % 2) != 0)
+                        if (wires.IndexOf("red") != wires.LastIndexOf("red") && lastSerial % 2 != 0)
                             Console.WriteLine("Cut Last Wire");
                         else if (wires.Last() == "yellow" && !wires.Contains("red"))
                             Console.WriteLine("Cut First Wire");
@@ -385,6 +386,15 @@ namespace KTNEBombSolver
                         break;
 
                     case 6: // Solve for 6 wires
+                        if (!wires.Contains("yellow") && lastSerial % 2 != 0)
+                            Console.WriteLine("Cut Third Wire");
+                        else if (wires.Contains("yellow") && wires.IndexOf("yellow") == wires.LastIndexOf("yellow")
+                            && wires.IndexOf("white") != wires.LastIndexOf("white"))
+                            Console.WriteLine("Cut Fourth Wire");
+                        else if (!wires.Contains("red"))
+                            Console.WriteLine("Cut Last Wire");
+                        else
+                            Console.WriteLine("Cut Fourth Wire");
                         break;
                 }
             }
