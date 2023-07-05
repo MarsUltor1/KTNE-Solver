@@ -19,6 +19,251 @@ namespace KTNEBombSolver
 
     internal interface Modules
     {
+
+
+        /// <summary>
+        /// Solve "Simple Wires" Module
+        /// </summary>
+        /// <param name="lastSerial">last digit of serial number</param>
+        static void SWires(ref int lastSerial)
+        {
+
+            List<string> wires = new List<string>();
+            List<Color> colors = new List<Color>();
+            bool quit = false;
+
+            // Get last digit of serial #
+            if (lastSerial < 0)
+            {
+                Console.Write("\nEnter the last digit of serial #: ");
+                lastSerial = int.Parse(Console.ReadLine());
+            }
+
+            #region Input Wires
+            while (!quit)
+            {
+                // Get all wires
+                Console.WriteLine("\nColors: r (red) | y (yellow | b (blue) | bl (black | w (white) ");
+                Console.Write("Enter Every Wire Color: ");
+                string wireString = Console.ReadLine().ToLower();
+
+                // Add wires to list
+                wires.Clear();
+                wires.AddRange(wireString.Split(new char[] { ' ' }));
+
+                // Check for correct number of wires
+                if (wires.Count < 3 || wires.Count > 6)
+                {
+                    Console.Write("ERROR: Invalid number of wires, enter between 3 and 6 colors. Enter [C] to continue or [X] To Quit. ");
+                    string cont = Console.ReadLine().ToLower();
+                    if (cont == "x") quit = true;
+                    continue;
+                }
+
+                // Check for correct colors of wires
+                for (int i = 0; i < wires.Count; i++)
+                {
+                    if (wires[i] != "r" && wires[i] != "y" && wires[i] != "b" &&
+                        wires[i] != "bl" && wires[i] != "w")
+                    {
+                        Console.Write($"ERROR: Invalid wire color, {wires[i]} is not a valid color. Enter [C] to continue or [X] To Quit. ");
+                        string cont = Console.ReadLine().ToLower();
+                        if (cont == "x") quit = true;
+                        continue;
+                    }
+                }
+
+                // Change colors to enum
+                for (int i = 0; i < wires.Count; i++)
+                {
+                    switch (wires[i])
+                    {
+                        case "r": colors.Add(Color.Red); break;
+                        case "y": colors.Add(Color.Yellow); break;
+                        case "b": colors.Add(Color.Blue); break;
+                        case "bl": colors.Add(Color.Black); break;
+                        case "w": colors.Add(Color.White); break;
+                    }
+                }
+
+                break;
+            }
+            #endregion
+
+            #region Solve Wires
+            // Check if module was quit
+            if ( !quit )
+            {
+                switch (wires.Count)
+                {
+                    case 3: // Solve for 3 wires
+                        if (!colors.Contains(Color.Red))
+                            Console.WriteLine("Cut Second Wire");
+                        else if (colors[colors.Count() - 1] == Color.White)
+                            Console.WriteLine("Cut Last Wire");
+                        else if (colors.IndexOf(Color.Blue) != colors.LastIndexOf(Color.Blue))
+                            Console.WriteLine("Cut Last Blue Wire");
+                        else
+                            Console.WriteLine("Cut Last Wire");
+                        break;
+
+                    case 4: // Solve for 4 wires
+                        if (colors.IndexOf(Color.Red) != colors.LastIndexOf(Color.Red) && lastSerial % 2 != 0)
+                            Console.WriteLine("Cut Last Wire");
+                        else if (colors.Last() == Color.Yellow && !colors.Contains(Color.Red))
+                            Console.WriteLine("Cut First Wire");
+                        else if (colors.Contains(Color.Blue) && colors.IndexOf(Color.Blue) == colors.LastIndexOf(Color.Blue))
+                            Console.WriteLine("Cut First Wire");
+                        else if (colors.IndexOf(Color.Yellow) != colors.LastIndexOf(Color.Yellow))
+                            Console.WriteLine("Cut Last Wire");
+                        else
+                            Console.WriteLine("Cut Second Wire");
+                        break;
+
+                    case 5: // Solve for 5 wires
+                        if (colors[colors.Count() - 1] == Color.Black && lastSerial % 2 != 0)
+                            Console.WriteLine("Cut Fourth Wire");
+                        else if (colors.Contains(Color.Red) && colors.IndexOf(Color.Red) == colors.LastIndexOf(Color.Red)
+                            && colors.IndexOf(Color.Yellow) != colors.LastIndexOf(Color.Yellow))
+                            Console.WriteLine("Cut First Wire");
+                        else if (!colors.Contains(Color.Black))
+                            Console.WriteLine("Cut Second Wire");
+                        else
+                            Console.WriteLine("Cut First Wire");
+                        break;
+
+                    case 6: // Solve for 6 wires
+                        if (!colors.Contains(Color.Yellow) && lastSerial % 2 != 0)
+                            Console.WriteLine("Cut Third Wire");
+                        else if (colors.Contains(Color.Yellow) && colors.IndexOf(Color.Yellow) == colors.LastIndexOf(Color.Yellow)
+                            && colors.IndexOf(Color.White) != colors.LastIndexOf(Color.White))
+                            Console.WriteLine("Cut Fourth Wire");
+                        else if (!colors.Contains(Color.Red))
+                            Console.WriteLine("Cut Last Wire");
+                        else
+                            Console.WriteLine("Cut Fourth Wire");
+                        break;
+                }
+            }
+            #endregion
+        }
+
+        /// <summary>
+        /// Solve "Button" Module
+        /// </summary>
+        /// <param name="numBatt">number of batteries</param>
+        static void Button(ref int numBatt)
+        {
+            Color color = Color.Null;
+            string word = "";
+            bool quit = false;
+
+            // Check Batteries
+            if (numBatt < 0)
+            {
+                Console.Write("\nEnter # of Batteries: ");
+                numBatt = int.Parse(Console.ReadLine());
+            }
+
+            #region Input Button
+            while (!quit)
+            {
+                // Get button color
+                Console.WriteLine("\nColors: r (red) | y (yellow | b (blue) | bl (black | w (white) ");
+                Console.Write("Enter Button Color: ");
+                string buttonColor = Console.ReadLine().ToLower();
+
+                // Get button word
+                Console.Write("Enter Button Word: ");
+                word = Console.ReadLine().ToLower();
+
+                // Check color and word
+                if (buttonColor != "r" && buttonColor != "y" && buttonColor != "b" &&
+                        buttonColor != "bl" && buttonColor != "w")
+                {
+                    Console.Write($"ERROR: Invalid button color, {buttonColor} is not a valid color. Enter [C] to continue or [X] To Quit. ");
+                    string cont = Console.ReadLine().ToLower();
+                    if (cont == "x") quit = true;
+                    continue;
+                }
+
+                if (word != "abort" && word != "detonate" && 
+                    word != "hold" && word != "press")
+                {
+                    Console.Write($"ERROR: Invalid word, {word} is not a valid word. Enter [C] to continue or [X] To Quit. ");
+                    string cont = Console.ReadLine().ToLower();
+                    if (cont == "x") quit = true;
+                    continue;
+                }
+
+                // Swap color to enum
+                switch (buttonColor)
+                {
+                    case "r": color = Color.Red; break;
+                    case "y": color = Color.Yellow; break;
+                    case "b": color = Color.Blue; break;
+                    case "bl": color = Color.Black; break;
+                    case "w": color = Color.White; break;
+                }
+
+                break;
+            }
+            #endregion
+
+            #region Solve Button
+            if (!quit)
+            {
+                if (color == Color.Blue && word == "abort")
+                {
+                    Console.WriteLine("Hold and Release Based on Color. Blue = 4 | Yellow = 5 | Other = 1");
+                    return;
+                }
+                if (numBatt > 1 && word == "detonate")
+                {
+                    Console.WriteLine("Press and Release");
+                    return;
+                } 
+                if (color == Color.White)
+                {
+                    //Check for CAR indicator
+                    Console.Write("Is there a lit CAR indicator (Y/N): ");
+                    string ans = Console.ReadLine().ToLower();
+                    bool carInd = ans == "y";
+
+                    if (carInd)
+                    {
+                        Console.WriteLine("Hold and Release Based on Color. Blue = 4 | Yellow = 5 | Other = 1");
+                        return;
+                    } 
+                }
+                if (numBatt > 2)
+                {
+                    //Check for FRK indicator
+                    Console.Write("Is there a lit FRK indicator (Y/N): ");
+                    string ans = Console.ReadLine().ToLower();
+                    bool frkInd = ans == "y";
+
+                    if (frkInd)
+                    {
+                        Console.WriteLine("Press and Release");
+                        return;
+                    }
+                }
+                if (color == Color.Yellow)
+                {
+                    Console.WriteLine("Hold and Release Based on Color. Blue = 4 | Yellow = 5 | Other = 1");
+                    return;
+                }
+                if (color == Color.Red && word == "hold")
+                {
+                    Console.WriteLine("Press and Release");
+                    return;
+                }
+                Console.WriteLine("Hold and Release Based on Color. Blue = 4 | Yellow = 5 | Other = 1");
+            }
+            #endregion
+        }
+
         /// <summary>
         /// Solve the "Who's on First" Module
         /// </summary>
@@ -313,244 +558,6 @@ namespace KTNEBombSolver
                 }
                 #endregion
             }
-        }
-
-        /// <summary>
-        /// Solve "Simple Wires" Module
-        /// </summary>
-        static void SWires(ref int lastSerial)
-        {
-
-            List<string> wires = new List<string>();
-            List<Color> colors = new List<Color>();
-            bool quit = false;
-
-            // Get last digit of serial #
-            if (lastSerial < 0)
-            {
-                Console.Write("\nEnter the last digit of serial #: ");
-                lastSerial = int.Parse(Console.ReadLine());
-            }
-
-            #region Input Wires
-            while (!quit)
-            {
-                // Get all wires
-                Console.WriteLine("\nColors: r (red) | y (yellow | b (blue) | bl (black | w (white) ");
-                Console.Write("Enter Every Wire Color: ");
-                string wireString = Console.ReadLine().ToLower();
-
-                // Add wires to list
-                wires.Clear();
-                wires.AddRange(wireString.Split(new char[] { ' ' }));
-
-                // Check for correct number of wires
-                if (wires.Count < 3 || wires.Count > 6)
-                {
-                    Console.Write("ERROR: Invalid number of wires, enter between 3 and 6 colors. Enter [C] to continue or [X] To Quit. ");
-                    string cont = Console.ReadLine().ToLower();
-                    if (cont == "x") quit = true;
-                    continue;
-                }
-
-                // Check for correct colors of wires
-                for (int i = 0; i < wires.Count; i++)
-                {
-                    if (wires[i] != "r" && wires[i] != "y" && wires[i] != "b" &&
-                        wires[i] != "bl" && wires[i] != "w")
-                    {
-                        Console.Write($"ERROR: Invalid wire color, {wires[i]} is not a valid color. Enter [C] to continue or [X] To Quit. ");
-                        string cont = Console.ReadLine().ToLower();
-                        if (cont == "x") quit = true;
-                        continue;
-                    }
-                }
-
-                // Change colors to enum
-                for (int i = 0; i < wires.Count; i++)
-                {
-                    switch (wires[i])
-                    {
-                        case "r": colors.Add(Color.Red); break;
-                        case "y": colors.Add(Color.Yellow); break;
-                        case "b": colors.Add(Color.Blue); break;
-                        case "bl": colors.Add(Color.Black); break;
-                        case "w": colors.Add(Color.White); break;
-                    }
-                }
-
-                break;
-            }
-            #endregion
-
-            #region Solve Wires
-            // Check if module was quit
-            if ( !quit )
-            {
-                switch (wires.Count)
-                {
-                    case 3: // Solve for 3 wires
-                        if (!colors.Contains(Color.Red))
-                            Console.WriteLine("Cut Second Wire");
-                        else if (colors[colors.Count() - 1] == Color.White)
-                            Console.WriteLine("Cut Last Wire");
-                        else if (colors.IndexOf(Color.Blue) != colors.LastIndexOf(Color.Blue))
-                            Console.WriteLine("Cut Last Blue Wire");
-                        else
-                            Console.WriteLine("Cut Last Wire");
-                        break;
-
-                    case 4: // Solve for 4 wires
-                        if (colors.IndexOf(Color.Red) != colors.LastIndexOf(Color.Red) && lastSerial % 2 != 0)
-                            Console.WriteLine("Cut Last Wire");
-                        else if (colors.Last() == Color.Yellow && !colors.Contains(Color.Red))
-                            Console.WriteLine("Cut First Wire");
-                        else if (colors.Contains(Color.Blue) && colors.IndexOf(Color.Blue) == colors.LastIndexOf(Color.Blue))
-                            Console.WriteLine("Cut First Wire");
-                        else if (colors.IndexOf(Color.Yellow) != colors.LastIndexOf(Color.Yellow))
-                            Console.WriteLine("Cut Last Wire");
-                        else
-                            Console.WriteLine("Cut Second Wire");
-                        break;
-
-                    case 5: // Solve for 5 wires
-                        if (colors[colors.Count() - 1] == Color.Black && lastSerial % 2 != 0)
-                            Console.WriteLine("Cut Fourth Wire");
-                        else if (colors.Contains(Color.Red) && colors.IndexOf(Color.Red) == colors.LastIndexOf(Color.Red)
-                            && colors.IndexOf(Color.Yellow) != colors.LastIndexOf(Color.Yellow))
-                            Console.WriteLine("Cut First Wire");
-                        else if (!colors.Contains(Color.Black))
-                            Console.WriteLine("Cut Second Wire");
-                        else
-                            Console.WriteLine("Cut First Wire");
-                        break;
-
-                    case 6: // Solve for 6 wires
-                        if (!colors.Contains(Color.Yellow) && lastSerial % 2 != 0)
-                            Console.WriteLine("Cut Third Wire");
-                        else if (colors.Contains(Color.Yellow) && colors.IndexOf(Color.Yellow) == colors.LastIndexOf(Color.Yellow)
-                            && colors.IndexOf(Color.White) != colors.LastIndexOf(Color.White))
-                            Console.WriteLine("Cut Fourth Wire");
-                        else if (!colors.Contains(Color.Red))
-                            Console.WriteLine("Cut Last Wire");
-                        else
-                            Console.WriteLine("Cut Fourth Wire");
-                        break;
-                }
-            }
-            #endregion
-        }
-
-        static void Button(ref int numBatt)
-        {
-            Color color = Color.Null;
-            string word = "";
-            bool quit = false;
-
-            // Check Batteries
-            if (numBatt < 0)
-            {
-                Console.Write("\nEnter # of Batteries: ");
-                numBatt = int.Parse(Console.ReadLine());
-            }
-
-            #region Input Button
-            while (!quit)
-            {
-                // Get button color
-                Console.WriteLine("\nColors: r (red) | y (yellow | b (blue) | bl (black | w (white) ");
-                Console.Write("Enter Button Color: ");
-                string buttonColor = Console.ReadLine().ToLower();
-
-                // Get button word
-                Console.Write("Enter Button Word: ");
-                word = Console.ReadLine().ToLower();
-
-                // Check color and word
-                if (buttonColor != "r" && buttonColor != "y" && buttonColor != "b" &&
-                        buttonColor != "bl" && buttonColor != "w")
-                {
-                    Console.Write($"ERROR: Invalid button color, {buttonColor} is not a valid color. Enter [C] to continue or [X] To Quit. ");
-                    string cont = Console.ReadLine().ToLower();
-                    if (cont == "x") quit = true;
-                    continue;
-                }
-
-                if (word != "abort" && word != "detonate" && 
-                    word != "hold" && word != "press")
-                {
-                    Console.Write($"ERROR: Invalid word, {word} is not a valid word. Enter [C] to continue or [X] To Quit. ");
-                    string cont = Console.ReadLine().ToLower();
-                    if (cont == "x") quit = true;
-                    continue;
-                }
-
-                // Swap color to enum
-                switch (buttonColor)
-                {
-                    case "r": color = Color.Red; break;
-                    case "y": color = Color.Yellow; break;
-                    case "b": color = Color.Blue; break;
-                    case "bl": color = Color.Black; break;
-                    case "w": color = Color.White; break;
-                }
-
-                break;
-            }
-            #endregion
-
-            #region Solve Button
-            if (!quit)
-            {
-                if (color == Color.Blue && word == "abort")
-                {
-                    Console.WriteLine("Hold and Release Based on Color. Blue = 4 | Yellow = 5 | Other = 1");
-                    return;
-                }
-                if (numBatt > 1 && word == "detonate")
-                {
-                    Console.WriteLine("Press and Release");
-                    return;
-                } 
-                if (color == Color.White)
-                {
-                    //Check for CAR indicator
-                    Console.Write("Is there a lit CAR indicator (Y/N): ");
-                    string ans = Console.ReadLine().ToLower();
-                    bool carInd = ans == "y";
-
-                    if (carInd)
-                    {
-                        Console.WriteLine("Hold and Release Based on Color. Blue = 4 | Yellow = 5 | Other = 1");
-                        return;
-                    } 
-                }
-                if (numBatt > 2)
-                {
-                    //Check for FRK indicator
-                    Console.Write("Is there a lit FRK indicator (Y/N): ");
-                    string ans = Console.ReadLine().ToLower();
-                    bool frkInd = ans == "y";
-
-                    if (frkInd)
-                    {
-                        Console.WriteLine("Press and Release");
-                        return;
-                    }
-                }
-                if (color == Color.Yellow)
-                {
-                    Console.WriteLine("Hold and Release Based on Color. Blue = 4 | Yellow = 5 | Other = 1");
-                    return;
-                }
-                if (color == Color.Red && word == "hold")
-                {
-                    Console.WriteLine("Press and Release");
-                    return;
-                }
-                Console.WriteLine("Hold and Release Based on Color. Blue = 4 | Yellow = 5 | Other = 1");
-            }
-            #endregion
         }
     }
 }
