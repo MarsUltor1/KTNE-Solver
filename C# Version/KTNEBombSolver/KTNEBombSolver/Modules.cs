@@ -400,37 +400,37 @@ namespace KTNEBombSolver
                         break;
 
                     case 4: // Solve for 4 wires
-                        if (wires.IndexOf("red") != wires.LastIndexOf("red") && lastSerial % 2 != 0)
+                        if (colors.IndexOf(Colors.Red) != colors.LastIndexOf(Colors.Red) && lastSerial % 2 != 0)
                             Console.WriteLine("Cut Last Wire");
-                        else if (wires.Last() == "yellow" && !wires.Contains("red"))
+                        else if (colors.Last() == Colors.Yellow && !colors.Contains(Colors.Red))
                             Console.WriteLine("Cut First Wire");
-                        else if (wires.Contains("blue") && wires.IndexOf("blue") == wires.LastIndexOf("blue"))
+                        else if (colors.Contains(Colors.Blue) && colors.IndexOf(Colors.Blue) == colors.LastIndexOf(Colors.Blue))
                             Console.WriteLine("Cut First Wire");
-                        else if (wires.IndexOf("yellow") != wires.LastIndexOf("yellow"))
+                        else if (colors.IndexOf(Colors.Yellow) != colors.LastIndexOf(Colors.Yellow))
                             Console.WriteLine("Cut Last Wire");
                         else
                             Console.WriteLine("Cut Second Wire");
                         break;
 
                     case 5: // Solve for 5 wires
-                        if (wires[wires.Count() - 1] == "black" && lastSerial % 2 != 0)
+                        if (colors[colors.Count() - 1] == Colors.Black && lastSerial % 2 != 0)
                             Console.WriteLine("Cut Fourth Wire");
-                        else if (wires.Contains("red") && wires.IndexOf("red") == wires.LastIndexOf("red")
-                            && wires.IndexOf("yellow") != wires.LastIndexOf("yellow"))
+                        else if (colors.Contains(Colors.Red) && colors.IndexOf(Colors.Red) == colors.LastIndexOf(Colors.Red)
+                            && colors.IndexOf(Colors.Yellow) != colors.LastIndexOf(Colors.Yellow))
                             Console.WriteLine("Cut First Wire");
-                        else if (!wires.Contains("black"))
+                        else if (!colors.Contains(Colors.Black))
                             Console.WriteLine("Cut Second Wire");
                         else
                             Console.WriteLine("Cut First Wire");
                         break;
 
                     case 6: // Solve for 6 wires
-                        if (!wires.Contains("yellow") && lastSerial % 2 != 0)
+                        if (!colors.Contains(Colors.Yellow) && lastSerial % 2 != 0)
                             Console.WriteLine("Cut Third Wire");
-                        else if (wires.Contains("yellow") && wires.IndexOf("yellow") == wires.LastIndexOf("yellow")
-                            && wires.IndexOf("white") != wires.LastIndexOf("white"))
+                        else if (colors.Contains(Colors.Yellow) && colors.IndexOf(Colors.Yellow) == colors.LastIndexOf(Colors.Yellow)
+                            && colors.IndexOf(Colors.White) != colors.LastIndexOf(Colors.White))
                             Console.WriteLine("Cut Fourth Wire");
-                        else if (!wires.Contains("red"))
+                        else if (!colors.Contains(Colors.Red))
                             Console.WriteLine("Cut Last Wire");
                         else
                             Console.WriteLine("Cut Fourth Wire");
