@@ -5,16 +5,16 @@
         static void Main(string[] args)
         {
             string userIn = "";
-            string serialNumber = "";
+            int lastSerial = int.MinValue;
+            bool hasVowel;
             int numBatteries = 0;
-            string commands = "whos on first | simple wires | quit";
+            string commands = "wof (whos on first) | sw (simple wires) | quit";
 
             // Introduce the player
-            Console.WriteLine("Welcome To Bombsolver\nPlease fill out basic information and continue to the solver");
-            Console.WriteLine("\n----------------------------------------");
+            Console.WriteLine("Welcome To Bombsolver");
 
             // run config
-            Config(ref serialNumber, ref numBatteries);
+            //Config(ref serialNumber, ref numBatteries);
 
             // Loop main body
             do
@@ -28,12 +28,12 @@
                 // Run correct function
                 switch (userIn)
                 {
-                    case "whos on first":
+                    case "wof":
                         Modules.WhosOnFirst();
                         break;
 
-                    case "simple wires":
-                        Modules.SWires(serialNumber);
+                    case "sw":
+                        Modules.SWires(ref lastSerial);
                         break;
 
                     case "quit":
@@ -54,19 +54,19 @@
         /// </summary>
         /// <param name="sn">serial number of bomb</param>
         /// <param name="nb">number of batteries</param>
-        static void Config(ref string sn, ref int nb)
-        {
-            // Get Serial Number
-            Console.Write("Input Serial Number: ");
-            sn = Console.ReadLine().ToLower();
+        //static void Config(ref string sn, ref int nb)
+        //{
+        //    // Get Serial Number
+        //    Console.Write("Input Serial Number: ");
+        //    sn = Console.ReadLine().ToLower();
 
-            // Get Num Batteries
-            Console.Write("Input Number of Batteries: ");
-            nb = int.Parse(Console.ReadLine());
+        //    // Get Num Batteries
+        //    Console.Write("Input Number of Batteries: ");
+        //    nb = int.Parse(Console.ReadLine());
 
-            // Print out Conformation
-            Console.WriteLine($"Serial Updated to: {sn}");
-            Console.WriteLine($"Number of Batteries Updated to: {nb}");
-        }
+        //    // Print out Conformation
+        //    Console.WriteLine($"Serial Updated to: {sn}");
+        //    Console.WriteLine($"Number of Batteries Updated to: {nb}");
+        //}
     }
 }

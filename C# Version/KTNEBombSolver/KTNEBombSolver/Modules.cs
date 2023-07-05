@@ -7,6 +7,15 @@ using System.Threading.Tasks;
 
 namespace KTNEBombSolver
 {
+    enum Colors
+    {
+        Red,
+        Yellow,
+        Blue,
+        Black,
+        White
+    }
+
     internal interface Modules
     {
         /// <summary>
@@ -308,16 +317,25 @@ namespace KTNEBombSolver
         /// <summary>
         /// Solve "Simple Wires" Module
         /// </summary>
-        static void SWires(string sn)
+        static void SWires(ref int lastSerial)
         {
 
             List<string> wires = new List<string>();
+            List<Colors> colors = new List<Colors>();
             bool quit = false;
+
+            // Get last digit of serial #
+            if (lastSerial < 0)
+            {
+                Console.Write("\nEnter the last digit of serial #: ");
+                lastSerial = int.Parse(Console.ReadLine());
+            }
 
             #region Input Wires
             while (true && !quit)
             {
                 // Get all wires
+                Console.WriteLine("Colors: r (red) | y (yellow | b (blue) | bl (black | w (white) ");
                 Console.Write("\nEnter Every Wire Color: ");
                 string wireString = Console.ReadLine().ToLower();
 
@@ -328,20 +346,35 @@ namespace KTNEBombSolver
                 // Check for correct number of wires
                 if (wires.Count < 3 || wires.Count > 6)
                 {
-                    Console.WriteLine("ERROR: Invalid number of wires, enter between 3 and 6 colors. Enter [C] to continue or [X] To Quit.");
+                    Console.Write("ERROR: Invalid number of wires, enter between 3 and 6 colors. Enter [C] to continue or [X] To Quit. ");
+                    string cont = Console.ReadLine().ToLower();
+                    if (cont == "x") quit = true;
                     continue;
                 }
 
                 // Check for correct colors of wires
                 for (int i = 0; i < wires.Count; i++)
                 {
-                    if (wires[i] != "yellow" || wires[i] != "red" || wires[i] != "blue" ||
-                        wires[i] != "black" || wires[i] != "white")
+                    if (wires[i] != "r" && wires[i] != "y" && wires[i] != "b" &&
+                        wires[i] != "bl" && wires[i] != "w")
                     {
-                        Console.WriteLine($"ERROR: Invalid wire color, {wires[i]} is not a valid color. Enter [C] to continue or [X] To Quit.");
+                        Console.Write($"ERROR: Invalid wire color, {wires[i]} is not a valid color. Enter [C] to continue or [X] To Quit. ");
                         string cont = Console.ReadLine().ToLower();
                         if (cont == "x") quit = true;
                         continue;
+                    }
+                }
+
+                // Change colors to enum
+                for (int i = 0; i < wires.Count; i++)
+                {
+                    switch (wires[i])
+                    {
+                        case "r": colors.Add(Colors.Red); break;
+                        case "y": colors.Add(Colors.Yellow); break;
+                        case "b": colors.Add(Colors.Blue); break;
+                        case "bl": colors.Add(Colors.Black); break;
+                        case "w": colors.Add(Colors.White); break;
                     }
                 }
 
@@ -353,17 +386,14 @@ namespace KTNEBombSolver
             // Check if module was quit
             if ( !quit )
             {
-                int lastSerial;
-                int.TryParse(sn.Last().ToString(), out lastSerial);
-
                 switch (wires.Count)
                 {
                     case 3: // Solve for 3 wires
-                        if (!wires.Contains("red"))
+                        if (!colors.Contains(Colors.Red))
                             Console.WriteLine("Cut Second Wire");
-                        else if (wires[wires.Count() - 1] == "white")
+                        else if (colors[colors.Count() - 1] == Colors.White)
                             Console.WriteLine("Cut Last Wire");
-                        else if (wires.IndexOf("blue") != wires.LastIndexOf("blue"))
+                        else if (colors.IndexOf(Colors.Blue) != colors.LastIndexOf(Colors.Blue))
                             Console.WriteLine("Cut Last Blue Wire");
                         else
                             Console.WriteLine("Cut Last Wire");
