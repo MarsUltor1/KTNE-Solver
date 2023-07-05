@@ -31,11 +31,11 @@ def symbol_init():
     screen.fill("gray")
 
     index = 0
-    symbols = os.listdir('symbols')
+    symbols = os.listdir('Python Version/symbols')
     while index < len(symbols):
         filename = symbols[index]
         if filename.endswith('.png'):
-            with open(os.path.join('symbols', filename)) as f:
+            with open(os.path.join('Python Version/symbols', filename)) as f:
                 image = pygame.image.load(f)
                 image = pygame.transform.scale(image, (128,128))
                 memory.append(image)
@@ -59,6 +59,8 @@ def symbol_logic():
     working_mem = []
     working_symbols = []
     ordered_solution = []
+    do_not_continue = False
+
     if num_flagged == 4:
         for i in range(len(flagged)):
             if flagged[i] == True:
@@ -79,30 +81,38 @@ def symbol_logic():
                     continue
             symbols.pop(0)
         
-        for z in range(len(working_mem[0])):
-            if working_mem[0][z] in working_symbols:
-                ordered_solution.append(working_mem[0][z])
+        try:
+            for z in range(len(working_mem[0])):
+                if working_mem[0][z] in working_symbols:
+                    ordered_solution.append(working_mem[0][z])
 
-        pygame.draw.rect(screen,(190,190,190), pygame.Rect(640,384,512,128))
+        except IndexError:
+            pygame.draw.rect(screen,(180,0,0), pygame.Rect(64,400,512,80))
+            draw_big_text("SOLVE",218,410,"white",bigfont)
+            do_not_continue = True
 
-        draw_text("1",640,400)
-        draw_text("2",768,400)
-        draw_text("3",896,400)
-        draw_text("4",1024,400)
+        if do_not_continue == False:
+            pygame.draw.rect(screen,(0,180,0), pygame.Rect(64,400,512,80))
+            draw_big_text("SOLVE",218,410,"white",bigfont)
 
-        sym0 = pygame.transform.scale(memory[ordered_solution[0]], (128,128))
-        sym1 = pygame.transform.scale(memory[ordered_solution[1]], (128,128))
-        sym2 = pygame.transform.scale(memory[ordered_solution[2]], (128,128))
-        sym3 = pygame.transform.scale(memory[ordered_solution[3]], (128,128))
+            draw_text("1",640,400)
+            draw_text("2",768,400)
+            draw_text("3",896,400)
+            draw_text("4",1024,400)
 
-        screen.blit(sym0, (640,384))
-        screen.blit(sym1, (768,384))
-        screen.blit(sym2, (896,384))
-        screen.blit(sym3, (1024,384))
+            sym0 = pygame.transform.scale(memory[ordered_solution[0]], (128,128))
+            sym1 = pygame.transform.scale(memory[ordered_solution[1]], (128,128))
+            sym2 = pygame.transform.scale(memory[ordered_solution[2]], (128,128))
+            sym3 = pygame.transform.scale(memory[ordered_solution[3]], (128,128))
 
-        working_mem.clear()
-        working_symbols.clear()
-        ordered_solution.clear()
+            screen.blit(sym0, (640,384))
+            screen.blit(sym1, (768,384))
+            screen.blit(sym2, (896,384))
+            screen.blit(sym3, (1024,384))
+
+            working_mem.clear()
+            working_symbols.clear()
+            ordered_solution.clear()
 
 def button_flip(x,y,index):
     sym = pygame.transform.scale(memory[index], (128,128))

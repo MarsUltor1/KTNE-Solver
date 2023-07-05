@@ -478,9 +478,29 @@ def memory_game():
         stage += 1
 
 def simple_wires():
+    #see swire.py
     import swire
 
 def complicated_wires():
+    """
+    Once configured, the user describes the wire to the program and the programs tells whether or not to cut.
+    If a wire is blue, type 'b'
+    Red, type 'r'
+    Has a star, type 's'
+    LED lit up, type 'l'
+    If the wire is only white, type 'w'
+    To exit the module, type 'x'
+    
+    e.g.
+    A red wire with LED and star --> rls
+    A blue and white "candy cane" wire with led -- > bl
+    A red and blue wire with LED and star --> lsrb
+    A white wire, no LED or star --> w
+
+    Does order matter? No, because I have 30 trillion or statements covering all combinations. There is even protection against spelling errors. Life is good.
+    """
+
+    #Local variable block to preconfigure bomb, if not already done.
     done = False
     print("CONFIGURATION NEEDED:")
     parallel = input("IS THE BOMB EQUIPPED WITH A PARALLEL PORT? (Y/N) ").lower()
@@ -529,12 +549,18 @@ def complicated_wires():
             done = True
 
         elif wire == "h":
-            print("SYNTAX IS AS FOLLOWS:\nUSE THE FIRST LETTER OF AN ADJECTIVE TO DESCRIBE WIRE. ORDER DOESN'T MATTER. REMEMBER, ONLY SPECIFY A WIRE IS WHITE IF IT IS COMPLETELY WHITE. CANDY CANE WIRES ARE ONLY RED, OR BLUE.\nEXAMPLES:\nA RED WIRE WITH AN LED == rl\nA BLUE WIRE WITH LED AND STAR == bls")
+            print("SYNTAX IS AS FOLLOWS:\nUSE THE FIRST LETTER OF AN ADJECTIVE TO DESCRIBE WIRE. ORDER DOESN'T MATTER. REMEMBER, ONLY SPECIFY A WIRE IS WHITE IF IT IS COMPLETELY WHITE. CANDY CANE WIRES ARE ONLY RED, OR BLUE.\nEXAMPLES:\nA RED AND WHITE WIRE WITH AN LED == rl\nA BLUE WIRE WITH LED AND STAR == bls")
 
         else:
             print("ERROR: SYNTAX NOT RECOGNIZED.")
 
 def wire_sequence():
+    """
+    This one is remarkably simple. The different wire sequences are preprogrammed into lists. 
+    Each wire has a running counter of where it is in the sequence.
+    You tell the program what wire you see, it reads that step in the sequence and then increments the counter.
+    """
+
     print("ENTER [X] TO QUIT.")
     solved = False
     red_count = 0
@@ -565,6 +591,13 @@ def wire_sequence():
                 print("ERROR: SYNTAX NOT RECOGNIZED.")
 
 def button():
+    """
+    The logic tree kept terminating early if the button was white, but no FRK indicator.
+    So, I just copied the end of the logic tree to the end of both branches.
+    A tad redundant, but it works.
+    """
+
+
     print("CONFIGURATION NEEDED:")
     color = input("COLOR: ").lower()
     label = input("LABEL: ").lower()
@@ -609,6 +642,14 @@ def button():
         print("HOLD. RELEASE ON [YELLOW | 5] [BLUE | 4] [OTHER | 1]")
 
 def simon_says():
+    """
+    This one is also pretty simple.
+    The programs memory is, you guessed it, a list.
+    The user inputs the color they see, and the computer appends the color you press to its memory, then displays its memory.
+    In the event of a fuckup, the user may press 's' or 's-' to increment/decrement the strike counter on the fly. Memory is purged upon doing this however, requiring the user to re input the pattern.
+    """
+
+
     memory = []
     print("CONFIGURATION NEEDED:")
     strikes = int(input("CURRENT NUMBER OF STRIKES: "))
@@ -704,6 +745,15 @@ def simon_says():
         print(memory)
 
 def morse():
+    """
+    Since morse code is dependent on the defuser correctly relaying the dots and dashes, this isn't a solver as much as it is a suite.
+    Press 'l' to see the word:frequency correlation.
+    Otherwise, type the code (one letter at a time) and the program will translate it for you.
+    In the event you want to clear the memory, press 'C'
+
+    """
+
+
     print("ENTER ONE LETTER AT A TIME, NO SPACES. ENTER [X] TO QUIT. ENTER [L] TO LOOKUP WORDS & FREQUENCIES. ENTER [C] TO CLEAR MEMORY.")
     morse_to_letter = {
         '.-':"A",
@@ -764,6 +814,7 @@ def morse():
             print(bank)
 
 def symbols():
+    #see symbols.py
     import symbols
     
 def vent():
@@ -802,6 +853,7 @@ def help():
     print("TO CONFIGURE A KNOB, ENTER [KNOB]")
     print("TO DISCHARGE A CAPACITOR, TRY THINKING ABOUT IT. IF THAT FAILS, PRESS THE LEVER.")
 
+#Very important TOS agreement.
 debug = False
 print("BEFORE YOU CAN START DEFUSING, PLEASE READ THE TERMS AND CONDITIONS:")
 print("\n-----------TERMS AND CONDITIONS-----------")
@@ -813,6 +865,7 @@ if tc == "y":
     debug = True
     print("\nWELCOME TO THE DEFUSER. ENTER [HELP] FOR HELP. ENTER [CONFIG] TO PRECONFIGURE THE BOMB. ENTER [QUIT] TO QUIT. HAPPY DEFUSING.")
 
+#Loop that lets you hop from module to module until you're content, or you find a rare crash. Whichever comes first.
 while debug == True:
     
     query = input("\n").lower()
