@@ -8,7 +8,7 @@
             int lastSerial = int.MinValue;
             bool hasVowel;
             int numBatteries = int.MinValue;
-            string commands = "wof (whos on first) | sw (simple wires) | quit";
+            string commands = "wof (whos on first) | sw (simple wires) | btn (button) | quit";
 
             // Introduce the player
             Console.WriteLine("Welcome To Bombsolver");
@@ -34,6 +34,10 @@
 
                     case "sw":
                         Modules.SWires(ref lastSerial);
+                        break;
+
+                    case "btn":
+                        Modules.Button(ref numBatteries);
                         break;
 
                     case "quit":

@@ -336,7 +336,7 @@ namespace KTNEBombSolver
             {
                 // Get all wires
                 Console.WriteLine("\nColors: r (red) | y (yellow | b (blue) | bl (black | w (white) ");
-                Console.Write("\nEnter Every Wire Color: ");
+                Console.Write("Enter Every Wire Color: ");
                 string wireString = Console.ReadLine().ToLower();
 
                 // Add wires to list
@@ -453,12 +453,12 @@ namespace KTNEBombSolver
                 numBatt = int.Parse(Console.ReadLine());
             }
 
-            // Get button details
+            #region Input Button
             while (!quit)
             {
                 // Get button color
                 Console.WriteLine("\nColors: r (red) | y (yellow | b (blue) | bl (black | w (white) ");
-                Console.Write("\nEnter Button Color: ");
+                Console.Write("Enter Button Color: ");
                 string buttonColor = Console.ReadLine().ToLower();
 
                 // Get button word
@@ -496,11 +496,14 @@ namespace KTNEBombSolver
 
                 break;
             }
+            #endregion
 
+            #region Solve Button
             if (!quit)
             {
                 Console.WriteLine("Hold the button and release based on color. Blue = 4 | Yellow = 5 | Other = 1");
             }
+            #endregion
         }
     }
 }
