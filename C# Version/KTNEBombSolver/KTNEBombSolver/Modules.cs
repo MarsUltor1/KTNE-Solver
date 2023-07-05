@@ -13,7 +13,8 @@ namespace KTNEBombSolver
         Yellow,
         Blue,
         Black,
-        White
+        White,
+        Null
     }
 
     internal interface Modules
@@ -442,8 +443,8 @@ namespace KTNEBombSolver
 
         static void Button(ref int numBatt)
         {
-            Color color;
-            string word;
+            Color color = Color.Null;
+            string word = "";
             bool quit = false;
 
             // Check Batteries
@@ -501,7 +502,53 @@ namespace KTNEBombSolver
             #region Solve Button
             if (!quit)
             {
-                Console.WriteLine("Hold the button and release based on color. Blue = 4 | Yellow = 5 | Other = 1");
+                if (color == Color.Blue && word == "abort")
+                {
+                    Console.WriteLine("Hold and Release Based on Color. Blue = 4 | Yellow = 5 | Other = 1");
+                    return;
+                }
+                if (numBatt > 1 && word == "detonate")
+                {
+                    Console.WriteLine("Press and Release");
+                    return;
+                } 
+                if (color == Color.White)
+                {
+                    //Check for CAR indicator
+                    Console.Write("Is there a lit CAR indicator (Y/N): ");
+                    string ans = Console.ReadLine().ToLower();
+                    bool carInd = ans == "y";
+
+                    if (carInd)
+                    {
+                        Console.WriteLine("Hold and Release Based on Color. Blue = 4 | Yellow = 5 | Other = 1");
+                        return;
+                    } 
+                }
+                if (numBatt > 2)
+                {
+                    //Check for FRK indicator
+                    Console.Write("Is there a lit FRK indicator (Y/N): ");
+                    string ans = Console.ReadLine().ToLower();
+                    bool frkInd = ans == "y";
+
+                    if (frkInd)
+                    {
+                        Console.WriteLine("Press and Release");
+                        return;
+                    }
+                }
+                if (color == Color.Yellow)
+                {
+                    Console.WriteLine("Hold and Release Based on Color. Blue = 4 | Yellow = 5 | Other = 1");
+                    return;
+                }
+                if (color == Color.Red && word == "hold")
+                {
+                    Console.WriteLine("Press and Release");
+                    return;
+                }
+                Console.WriteLine("Hold and Release Based on Color. Blue = 4 | Yellow = 5 | Other = 1");
             }
             #endregion
         }
