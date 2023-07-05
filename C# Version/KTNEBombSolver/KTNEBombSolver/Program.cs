@@ -7,7 +7,7 @@
             string userIn = "";
             int lastSerial = int.MinValue;
             bool hasVowel;
-            int numBatteries = 0;
+            int numBatteries = int.MinValue;
             string commands = "wof (whos on first) | sw (simple wires) | quit";
 
             // Introduce the player

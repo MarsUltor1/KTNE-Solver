@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KTNEBombSolver
 {
-    enum Colors
+    enum Color
     {
         Red,
         Yellow,
@@ -321,7 +321,7 @@ namespace KTNEBombSolver
         {
 
             List<string> wires = new List<string>();
-            List<Colors> colors = new List<Colors>();
+            List<Color> colors = new List<Color>();
             bool quit = false;
 
             // Get last digit of serial #
@@ -332,10 +332,10 @@ namespace KTNEBombSolver
             }
 
             #region Input Wires
-            while (true && !quit)
+            while (!quit)
             {
                 // Get all wires
-                Console.WriteLine("Colors: r (red) | y (yellow | b (blue) | bl (black | w (white) ");
+                Console.WriteLine("\nColors: r (red) | y (yellow | b (blue) | bl (black | w (white) ");
                 Console.Write("\nEnter Every Wire Color: ");
                 string wireString = Console.ReadLine().ToLower();
 
@@ -370,11 +370,11 @@ namespace KTNEBombSolver
                 {
                     switch (wires[i])
                     {
-                        case "r": colors.Add(Colors.Red); break;
-                        case "y": colors.Add(Colors.Yellow); break;
-                        case "b": colors.Add(Colors.Blue); break;
-                        case "bl": colors.Add(Colors.Black); break;
-                        case "w": colors.Add(Colors.White); break;
+                        case "r": colors.Add(Color.Red); break;
+                        case "y": colors.Add(Color.Yellow); break;
+                        case "b": colors.Add(Color.Blue); break;
+                        case "bl": colors.Add(Color.Black); break;
+                        case "w": colors.Add(Color.White); break;
                     }
                 }
 
@@ -389,48 +389,48 @@ namespace KTNEBombSolver
                 switch (wires.Count)
                 {
                     case 3: // Solve for 3 wires
-                        if (!colors.Contains(Colors.Red))
+                        if (!colors.Contains(Color.Red))
                             Console.WriteLine("Cut Second Wire");
-                        else if (colors[colors.Count() - 1] == Colors.White)
+                        else if (colors[colors.Count() - 1] == Color.White)
                             Console.WriteLine("Cut Last Wire");
-                        else if (colors.IndexOf(Colors.Blue) != colors.LastIndexOf(Colors.Blue))
+                        else if (colors.IndexOf(Color.Blue) != colors.LastIndexOf(Color.Blue))
                             Console.WriteLine("Cut Last Blue Wire");
                         else
                             Console.WriteLine("Cut Last Wire");
                         break;
 
                     case 4: // Solve for 4 wires
-                        if (colors.IndexOf(Colors.Red) != colors.LastIndexOf(Colors.Red) && lastSerial % 2 != 0)
+                        if (colors.IndexOf(Color.Red) != colors.LastIndexOf(Color.Red) && lastSerial % 2 != 0)
                             Console.WriteLine("Cut Last Wire");
-                        else if (colors.Last() == Colors.Yellow && !colors.Contains(Colors.Red))
+                        else if (colors.Last() == Color.Yellow && !colors.Contains(Color.Red))
                             Console.WriteLine("Cut First Wire");
-                        else if (colors.Contains(Colors.Blue) && colors.IndexOf(Colors.Blue) == colors.LastIndexOf(Colors.Blue))
+                        else if (colors.Contains(Color.Blue) && colors.IndexOf(Color.Blue) == colors.LastIndexOf(Color.Blue))
                             Console.WriteLine("Cut First Wire");
-                        else if (colors.IndexOf(Colors.Yellow) != colors.LastIndexOf(Colors.Yellow))
+                        else if (colors.IndexOf(Color.Yellow) != colors.LastIndexOf(Color.Yellow))
                             Console.WriteLine("Cut Last Wire");
                         else
                             Console.WriteLine("Cut Second Wire");
                         break;
 
                     case 5: // Solve for 5 wires
-                        if (colors[colors.Count() - 1] == Colors.Black && lastSerial % 2 != 0)
+                        if (colors[colors.Count() - 1] == Color.Black && lastSerial % 2 != 0)
                             Console.WriteLine("Cut Fourth Wire");
-                        else if (colors.Contains(Colors.Red) && colors.IndexOf(Colors.Red) == colors.LastIndexOf(Colors.Red)
-                            && colors.IndexOf(Colors.Yellow) != colors.LastIndexOf(Colors.Yellow))
+                        else if (colors.Contains(Color.Red) && colors.IndexOf(Color.Red) == colors.LastIndexOf(Color.Red)
+                            && colors.IndexOf(Color.Yellow) != colors.LastIndexOf(Color.Yellow))
                             Console.WriteLine("Cut First Wire");
-                        else if (!colors.Contains(Colors.Black))
+                        else if (!colors.Contains(Color.Black))
                             Console.WriteLine("Cut Second Wire");
                         else
                             Console.WriteLine("Cut First Wire");
                         break;
 
                     case 6: // Solve for 6 wires
-                        if (!colors.Contains(Colors.Yellow) && lastSerial % 2 != 0)
+                        if (!colors.Contains(Color.Yellow) && lastSerial % 2 != 0)
                             Console.WriteLine("Cut Third Wire");
-                        else if (colors.Contains(Colors.Yellow) && colors.IndexOf(Colors.Yellow) == colors.LastIndexOf(Colors.Yellow)
-                            && colors.IndexOf(Colors.White) != colors.LastIndexOf(Colors.White))
+                        else if (colors.Contains(Color.Yellow) && colors.IndexOf(Color.Yellow) == colors.LastIndexOf(Color.Yellow)
+                            && colors.IndexOf(Color.White) != colors.LastIndexOf(Color.White))
                             Console.WriteLine("Cut Fourth Wire");
-                        else if (!colors.Contains(Colors.Red))
+                        else if (!colors.Contains(Color.Red))
                             Console.WriteLine("Cut Last Wire");
                         else
                             Console.WriteLine("Cut Fourth Wire");
@@ -438,6 +438,69 @@ namespace KTNEBombSolver
                 }
             }
             #endregion
+        }
+
+        static void Button(ref int numBatt)
+        {
+            Color color;
+            string word;
+            bool quit = false;
+
+            // Check Batteries
+            if (numBatt < 0)
+            {
+                Console.Write("\nEnter # of Batteries: ");
+                numBatt = int.Parse(Console.ReadLine());
+            }
+
+            // Get button details
+            while (!quit)
+            {
+                // Get button color
+                Console.WriteLine("\nColors: r (red) | y (yellow | b (blue) | bl (black | w (white) ");
+                Console.Write("\nEnter Button Color: ");
+                string buttonColor = Console.ReadLine().ToLower();
+
+                // Get button word
+                Console.Write("Enter Button Word: ");
+                word = Console.ReadLine().ToLower();
+
+                // Check color and word
+                if (buttonColor != "r" && buttonColor != "y" && buttonColor != "b" &&
+                        buttonColor != "bl" && buttonColor != "w")
+                {
+                    Console.Write($"ERROR: Invalid button color, {buttonColor} is not a valid color. Enter [C] to continue or [X] To Quit. ");
+                    string cont = Console.ReadLine().ToLower();
+                    if (cont == "x") quit = true;
+                    continue;
+                }
+
+                if (word != "abort" && word != "detonate" && 
+                    word != "hold" && word != "press")
+                {
+                    Console.Write($"ERROR: Invalid word, {word} is not a valid word. Enter [C] to continue or [X] To Quit. ");
+                    string cont = Console.ReadLine().ToLower();
+                    if (cont == "x") quit = true;
+                    continue;
+                }
+
+                // Swap color to enum
+                switch (buttonColor)
+                {
+                    case "r": color = Color.Red; break;
+                    case "y": color = Color.Yellow; break;
+                    case "b": color = Color.Blue; break;
+                    case "bl": color = Color.Black; break;
+                    case "w": color = Color.White; break;
+                }
+
+                break;
+            }
+
+            if (!quit)
+            {
+                Console.WriteLine("Hold the button and release based on color. Blue = 4 | Yellow = 5 | Other = 1");
+            }
         }
     }
 }
