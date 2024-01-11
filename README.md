@@ -3,4 +3,4 @@
  - when describing colors, use the first letter of each color
         Examples: r = red, b = blue, y = yellow, w = white, k = black
 
- - Project uses Python 3.11.4
+ - Project made with Python 3.11.4
