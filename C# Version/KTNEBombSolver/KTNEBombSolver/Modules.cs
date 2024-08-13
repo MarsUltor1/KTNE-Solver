@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
@@ -13,8 +14,38 @@ namespace KTNEBombSolver
         Yellow,
         Blue,
         Black,
-        White,
-        Null
+        White
+    }
+
+    enum Symbol
+    {
+        Copyright,
+        FilledStar,
+        HollowStar,
+        SmileyFace,
+        DoubleK,
+        Omega,
+        SquidKnife,
+        Pumpkin,
+        HookN,
+        Six,
+        SquigglyN,
+        At,
+        AE,
+        MeltedThree,
+        Euro,
+        NWithHat,
+        Dragon,
+        QuestionMark,
+        Paragraph,
+        RightC,
+        LeftC,
+        Pitchfork,
+        Cursive,
+        Tracks,
+        Balloon,
+        UpsideDownY,
+        BT
     }
 
     internal interface Modules
@@ -60,29 +91,24 @@ namespace KTNEBombSolver
                     continue;
                 }
 
-                // Check for correct colors of wires
-                for (int i = 0; i < wires.Count; i++)
-                {
-                    if (wires[i] != "r" && wires[i] != "y" && wires[i] != "b" &&
-                        wires[i] != "bl" && wires[i] != "w")
-                    {
-                        Console.Write($"ERROR: Invalid wire color, {wires[i]} is not a valid color. Enter [C] to continue or [X] To Quit. ");
-                        string cont = Console.ReadLine().ToLower();
-                        if (cont == "x") quit = true;
-                        continue;
-                    }
-                }
-
                 // Change colors to enum
                 for (int i = 0; i < wires.Count; i++)
                 {
                     switch (wires[i])
                     {
+                        // Handle correctly input colors
                         case "r": colors.Add(Color.Red); break;
                         case "y": colors.Add(Color.Yellow); break;
                         case "b": colors.Add(Color.Blue); break;
                         case "bl": colors.Add(Color.Black); break;
                         case "w": colors.Add(Color.White); break;
+
+                        // Send error message for incorrectly input colors
+                        default:
+                            Console.Write($"ERROR: Invalid wire color, {wires[i]} is not a valid color. Enter [C] to continue or [X] To Quit. ");
+                            string cont = Console.ReadLine().ToLower();
+                            if (cont == "x") quit = true;
+                            continue;
                     }
                 }
 
@@ -558,6 +584,14 @@ namespace KTNEBombSolver
                 }
                 #endregion
             }
+        }
+
+        /// <summary>
+        /// Solve the "Keypad" Module
+        /// </summary>
+        static void Keypad()
+        {
+
         }
     }
 }
