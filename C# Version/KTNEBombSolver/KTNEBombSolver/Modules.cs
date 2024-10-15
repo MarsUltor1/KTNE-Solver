@@ -14,7 +14,8 @@ namespace KTNEBombSolver
         Yellow,
         Blue,
         Black,
-        White
+        White,
+        Null
     }
 
     enum Symbol
@@ -30,7 +31,7 @@ namespace KTNEBombSolver
         HookN,
         Six,
         SquigglyN,
-        At,
+        AT,
         AE,
         MeltedThree,
         Euro,
@@ -591,6 +592,14 @@ namespace KTNEBombSolver
         /// </summary>
         static void Keypad()
         {
+            // Setup the six sollution lists
+            List<Symbol> columb1 = new List<Symbol>() { Symbol.Balloon, Symbol.AT, Symbol.UpsideDownY, Symbol.SquigglyN, Symbol.SquidKnife, Symbol.HookN, Symbol.LeftC };
+            List<Symbol> columb2 = new List<Symbol>() { Symbol.Euro, Symbol.Balloon, Symbol.LeftC, Symbol.Cursive, Symbol.HollowStar, Symbol.SquigglyN, Symbol.QuestionMark };
+            List<Symbol> columb3 = new List<Symbol>() { Symbol.Copyright, Symbol.Pumpkin, Symbol.Cursive, Symbol.DoubleK, Symbol.MeltedThree, Symbol.UpsideDownY, Symbol.HollowStar };
+            List<Symbol> columb4 = new List<Symbol>() { Symbol.Six, Symbol.Paragraph, Symbol.BT, Symbol.SquidKnife, Symbol.DoubleK, Symbol.QuestionMark, Symbol.SmileyFace };
+            List<Symbol> columb5 = new List<Symbol>() { Symbol.Pitchfork, Symbol.SmileyFace, Symbol.BT, Symbol.RightC, Symbol.Paragraph, Symbol.Dragon, Symbol.FilledStar };
+            List<Symbol> columb6 = new List<Symbol>() { Symbol.Six, Symbol.Euro, Symbol.Tracks, Symbol.AE, Symbol.Pitchfork, Symbol.NWithHat, Symbol.Omega };
+
 
         }
     }
