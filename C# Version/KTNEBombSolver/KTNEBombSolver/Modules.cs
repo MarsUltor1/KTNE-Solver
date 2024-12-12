@@ -58,19 +58,12 @@ namespace KTNEBombSolver
         /// Solve "Simple Wires" Module
         /// </summary>
         /// <param name="lastSerial">last digit of serial number</param>
-        public void SWires(ref int lastSerial)
+        public void SWires(int lastSerial)
         {
 
             List<string> wires = new List<string>();
             List<Color> colors = new List<Color>();
             bool quit = false;
-
-            // Get last digit of serial #
-            if (lastSerial < 0)
-            {
-                Console.Write("\nEnter the last digit of serial #: ");
-                lastSerial = int.Parse(Console.ReadLine());
-            }
 
             #region Input Wires
             while (!quit)
@@ -180,18 +173,11 @@ namespace KTNEBombSolver
         /// Solve "Button" Module
         /// </summary>
         /// <param name="numBatt">number of batteries</param>
-        public void Button(ref int numBatt)
+        public void Button(int numBatt)
         {
             Color color = Color.Null;
             string word = "";
             bool quit = false;
-
-            // Check Batteries
-            if (numBatt < 0)
-            {
-                Console.Write("\nEnter # of Batteries: ");
-                numBatt = int.Parse(Console.ReadLine());
-            }
 
             #region Input Button
             while (!quit)
@@ -422,7 +408,7 @@ namespace KTNEBombSolver
         /// </summary>
         /// <param name="hasVowel">Does the serial number contain a vowel</param>
         /// <param name="numStrikes">Number of strikes on the bomb</param>
-        public void SimonSays(ref bool hasVowel, ref int numStrikes)
+        public void SimonSays(bool hasVowel,int numStrikes)
         {
             #region Set Solution Dictionary
             // Setup possible solution dictionarys
@@ -1308,6 +1294,137 @@ namespace KTNEBombSolver
                             continue;
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Solve the "Complicated Wires" module
+        /// </summary>
+        /// <param name="lastSerial">Last digit of the serial number</param>
+        /// <param name="parrllelPort">Whether the bomb has a serial port</param>
+        /// <param name="numBatteries">Number of batteries on the bomb</param>
+        public void ComplicatedWires(int lastSerial,bool parrllelPort,int numBatteries)
+        {
+            Console.WriteLine("Go through all the instructions one wire at a time, you will be able to repeat for additional wires after finishing all the questions. Enter Q at anypoint to quit or once there are no more wires");
+
+            // run as many times as there are wires
+            while (true)
+            {
+                bool hasRed = false;
+                bool hasBlue = false;
+                bool hasStar = false;
+                bool ledOn = false;
+
+                #region get next wire information
+                // Get all four boolean values with one user input
+                bool done = false;
+                while (!done)
+                {
+                    Console.Write("\nAnswer the fallowing four questions with (Y/N) seperated by a space.\nDoes the wire have any red? Does the Wire have any blue? Does the wire have a star? does the wire have a lit up LED?\nAnswer: ");
+                    string input = Console.ReadLine().ToLower().Trim();
+
+                    // Check for user quiting the module
+                    if (input == "q") return;
+
+                    // Split input into the values for all four booleans
+                    string[] answers = input.Split(' ');
+                    if (answers.Length != 4)
+                    {
+                        Console.WriteLine("ERROR: Incorrect number of answers, please try again only giving 4 answers");
+                        continue;
+                    }
+
+                    for (int i = 0; i < 4; i++ )
+                    {
+                        bool currentBool;
+
+                        switch (answers[i])
+                        {
+                            case "y":
+                                currentBool = true;
+                                break;
+
+                            case "n":
+                                currentBool = false;
+                                break;
+
+                            default:
+                                Console.WriteLine("ERROR: Invalid input, please enter either Y or N.");
+                                i = int.MaxValue;
+                                continue;
+                        }
+
+                        switch (i)
+                        {
+                            case 0: 
+                                hasRed = currentBool; 
+                                break;
+
+                            case 1: 
+                                hasBlue = currentBool; 
+                                break;
+
+                            case 2:
+                                hasStar = currentBool;
+                                break;
+
+                            case 3:
+                                ledOn = currentBool;
+                                done = true;
+                                break;
+                        }
+                    }
+                }
+                #endregion
+
+                #region Solve whether wire should be cut
+                int toCutCatagory;
+
+                // Find where the wire sits in the four part ven diagram
+                if (hasRed && hasBlue && hasStar && ledOn) toCutCatagory = 1;
+                else if (hasRed && hasBlue && hasStar && !ledOn) toCutCatagory = 3;
+                else if (hasRed && hasBlue && !hasStar && ledOn) toCutCatagory = 2;
+                else if (hasRed && !hasBlue && hasStar && ledOn) toCutCatagory = 4;
+                else if (hasRed && hasBlue && !hasStar && !ledOn) toCutCatagory = 2;
+                else if (hasRed && !hasBlue && hasStar && !ledOn) toCutCatagory = 0;
+                else if (hasRed && !hasBlue && !hasStar && ledOn) toCutCatagory = 4;
+                else if (hasRed && !hasBlue && !hasStar && !ledOn) toCutCatagory = 2;
+                else if (!hasRed && hasBlue && hasStar && ledOn) toCutCatagory = 3;
+                else if (!hasRed && hasBlue && hasStar && !ledOn) toCutCatagory = 1;
+                else if (!hasRed && hasBlue && !hasStar && ledOn) toCutCatagory = 3;
+                else if (!hasRed && !hasBlue && hasStar && ledOn) toCutCatagory = 4;
+                else if (!hasRed && hasBlue && !hasStar && !ledOn) toCutCatagory = 2;
+                else if (!hasRed && !hasBlue && hasStar && !ledOn) toCutCatagory = 0;
+                else if (!hasRed && !hasBlue && !hasStar && ledOn) toCutCatagory = 1;
+                else toCutCatagory = 0;
+
+                // Send cut instructions based on ven diagram results
+                switch (toCutCatagory)
+                {
+                    case 0:
+                        Console.WriteLine("Cut the Wire");
+                        break;
+
+                    case 1:
+                        Console.WriteLine("Don't Cut the Wire");
+                        break;
+
+                    case 2:
+                        if (lastSerial % 2 == 0) Console.WriteLine("Cut the Wire");
+                        else Console.WriteLine("Don't Cut the Wire");
+                        break;
+
+                    case 3:
+                        if (parrllelPort) Console.WriteLine("Cut the Wire");
+                        else Console.WriteLine("Don't Cut the Wire");
+                        break;
+
+                    case 4:
+                        if (numBatteries > 1) Console.WriteLine("Cut the Wire");
+                        else Console.WriteLine("Don't Cut the Wire");
+                        break;
+                }
+                #endregion
             }
         }
     }

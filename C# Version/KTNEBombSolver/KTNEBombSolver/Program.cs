@@ -10,15 +10,18 @@
             int lastSerial = int.MinValue;
             bool lastSerialSet = false;
 
-            bool hasVowel = false;
-            bool hasVowelSet = false;
-
-            int numStrikes = 0;
-
             int numBatteries = int.MinValue;
             bool numBatteriesSet = false;
 
-            string commands = "sw (simple wires) | btn (button) | kp (keypad) | ss (simon says) | wof (whos on first) | mem (memory) | mc (morse code) | quit";
+            bool hasVowel = false;
+            bool hasVowelSet = false;
+
+            bool parallelPort = false;
+            bool parallelPortSet = false;
+
+            int numStrikes = 0;
+            
+            string commands = "sw (simple wires) | btn (button) | kp (keypad) | ss (simon says) | wof (whos on first) | mem (memory) | mc (morse code) | cw (complicated wires) | quit";
 
             // Introduce the player
             Console.WriteLine("Welcome To \"Keep talking and Nobody Explodes\" Bombsolver, Console Version 0.0.2");
@@ -36,11 +39,19 @@
                 switch (userIn)
                 {
                     case "sw":
-                        modules.SWires(ref lastSerial);
+                        // Check that all prerequisites are setup
+                        SetLastSerial(ref lastSerial, ref lastSerialSet);
+
+                        // Call module solving function
+                        modules.SWires(lastSerial);
                         break;
 
                     case "btn":
-                        modules.Button(ref numBatteries);
+                        // Check that all prerequisites are setup
+                        SetNumBatteries(ref numBatteries, ref numBatteriesSet);
+
+                        // Call module solving function
+                        modules.Button(numBatteries);
                         break;
 
                     case "kp":
@@ -53,7 +64,7 @@
                         CheckNumStrikes(ref numStrikes);
 
                         // Call module solving function
-                        modules.SimonSays(ref hasVowel, ref numStrikes);
+                        modules.SimonSays(hasVowel, numStrikes);
                         break;
 
                     case "wof":
@@ -66,6 +77,16 @@
 
                     case "mc":
                         modules.MorseCode();
+                        break;
+
+                    case "cw":
+                        // Check that all prerequisites are setup
+                        SetLastSerial(ref lastSerial, ref lastSerialSet);
+                        SetNumBatteries(ref numBatteries, ref numBatteriesSet);
+                        SetParallel(ref parallelPort, ref parallelPortSet);
+
+                        // Call module solving function
+                        modules.ComplicatedWires(lastSerial, parallelPort, numBatteries);
                         break;
 
                     case "quit":
@@ -82,6 +103,58 @@
         }
 
         /// <summary>
+        /// Set what the last serial number of the bomb is if not alread set
+        /// </summary>
+        /// <param name="lastSerial">What is the last digit of the serial number</param>
+        /// <param name="lastSerialSet">Has the lastSerial int already been set</param>
+        public static void SetLastSerial(ref int lastSerial, ref bool lastSerialSet)
+        {
+            // check that vowel hasn't already been set
+            if (lastSerialSet) return;
+
+            // set the has vowel boolean based on user input
+            while (true)
+            {
+                Console.Write("\nWhat is the last digit of the serial number: ");
+                if (int.TryParse(Console.ReadLine().ToLower().Trim(), out lastSerial))
+                {
+                    lastSerialSet = true;
+                    return;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Set how many batteries the bomb has if it hasn't already been set
+        /// </summary>
+        /// <param name="numBatteries">how many batteries does the bomb have</param>
+        /// <param name="numBatteriesSet">Has the numBatteries int already been set</param>
+        public static void SetNumBatteries(ref int numBatteries, ref bool numBatteriesSet)
+        {
+            // check that vowel hasn't already been set
+            if (numBatteriesSet) return;
+
+            // set the has vowel boolean based on user input
+            while (true)
+            {
+                Console.Write("\nHow many batteries does the bomb have: ");
+                if (int.TryParse(Console.ReadLine().ToLower().Trim(), out numBatteries))
+                {
+                    numBatteriesSet = true;
+                    return;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+        }
+
+        /// <summary>
         /// Set up the has value boolean and mark its has set bool to true
         /// </summary>
         /// <param name="hasVowel">reference to boolean that tracks whether the serial number contains a vowel</param>
@@ -94,7 +167,7 @@
             // set the has vowel boolean based on user input
             while (true)
             {
-                Console.Write("\nDose the serial number contain a vowel, y (yes) n (no) ");
+                Console.Write("\nDose the serial number contain a vowel (Y/N): ");
                 string input = Console.ReadLine().ToLower().Trim();
 
                 if (input == "y")
@@ -106,6 +179,42 @@
                 {
                     hasVowel = false;
                     hasVowelSet = true;
+                }
+                else
+                {
+                    Console.WriteLine("ERROR: invalid input please try again.");
+                    continue;
+                }
+
+                break;
+            }
+        }
+        
+        /// <summary>
+        /// Set whether the bomb has a parallel port or not if it is not already set
+        /// </summary>
+        /// <param name="hasParallel">Does the bomb have a parallel port</param>
+        /// <param name="hasParallelSet">Has the hasParallel bool already been set</param>
+        public static void SetParallel (ref bool hasParallel, ref bool hasParallelSet)
+        {
+            // check that vowel hasn't already been set
+            if (hasParallelSet) return;
+
+            // set the has vowel boolean based on user input
+            while (true)
+            {
+                Console.Write("\nDose the bomb have a parallel port (Y/N): ");
+                string input = Console.ReadLine().ToLower().Trim();
+
+                if (input == "y")
+                {
+                    hasParallel = true;
+                    hasParallelSet = true;
+                }
+                else if (input == "n")
+                {
+                    hasParallel = false;
+                    hasParallelSet = true;
                 }
                 else
                 {
