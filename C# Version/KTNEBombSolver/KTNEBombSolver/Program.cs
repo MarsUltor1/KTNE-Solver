@@ -1,14 +1,15 @@
 ﻿namespace KTNEBombSolver
 {
-    internal class Program
+    class Program
     {
         static void Main(string[] args)
         {
+            Modules modules = new Modules();
             string userIn = "";
             int lastSerial = int.MinValue;
             bool hasVowel;
             int numBatteries = int.MinValue;
-            string commands = "sw (simple wires) | btn (button) | wof (whos on first) | kp (keypad) | quit";
+            string commands = "sw (simple wires) | btn (button) | kp (keypad) | wof (whos on first) | quit";
 
             // Introduce the player
             Console.WriteLine("Welcome To \"Keep talking and Nobody Explodes\" Bombsolver, Console Version 0.0.2");
@@ -29,19 +30,19 @@
                 switch (userIn)
                 {
                     case "sw":
-                        Modules.SWires(ref lastSerial);
+                        modules.SWires(ref lastSerial);
                         break;
 
                     case "btn":
-                        Modules.Button(ref numBatteries);
-                        break;
-
-                    case "wof":
-                        Modules.WhosOnFirst();
+                        modules.Button(ref numBatteries);
                         break;
 
                     case "kp":
-                        Modules.Keypad();
+                        modules.Keypad();
+                        break;
+
+                    case "wof":
+                        modules.WhosOnFirst();
                         break;
 
                     case "quit":
