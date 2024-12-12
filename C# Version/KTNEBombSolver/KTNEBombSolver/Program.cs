@@ -18,7 +18,7 @@
             int numBatteries = int.MinValue;
             bool numBatteriesSet = false;
 
-            string commands = "sw (simple wires) | btn (button) | kp (keypad) | ss (simon says) | wof (whos on first) | quit";
+            string commands = "sw (simple wires) | btn (button) | kp (keypad) | ss (simon says) | wof (whos on first) | mem (memory) | quit";
 
             // Introduce the player
             Console.WriteLine("Welcome To \"Keep talking and Nobody Explodes\" Bombsolver, Console Version 0.0.2");
@@ -58,6 +58,10 @@
 
                     case "wof":
                         modules.WhosOnFirst();
+                        break;
+
+                    case "mem":
+                        modules.Memory();
                         break;
 
                     case "quit":
@@ -109,16 +113,24 @@
             }
         }
 
+        /// <summary>
+        /// Checks that the number of strikes hasn't changed if a module depends on it
+        /// </summary>
+        /// <param name="numStrikes">number of strikes on the bomb</param>
         public static void CheckNumStrikes (ref int numStrikes)
         {
+            // Check if the number or strikes has even changed
+            Console.Write($"\nIs the bomb still at {numStrikes} strikes (Y/N) ");
+            string input = Console.ReadLine().ToLower().Trim();
+            if (input == "y") return;
+
+            // If number of strikes is different get the new number
             while (true)
             {
-                Console.Write($"\nIs the bomb still at {numStrikes} strikes.\nEnter: y (yes) or 0, 1, or 2 if it is at a different number of stirkes ");
-                string input = Console.ReadLine().ToLower().Trim();
-
+                Console.Write($"How many strikes are on the bomb (0, 1, 2) ");
+                input = Console.ReadLine().ToLower().Trim();
                 switch (input) 
                 {
-                    case "y": return;
                     case "0": numStrikes = 0; return;
                     case "1": numStrikes = 1; return;
                     case "2": numStrikes = 2; return;

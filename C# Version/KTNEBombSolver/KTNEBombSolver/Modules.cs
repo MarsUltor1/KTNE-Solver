@@ -784,5 +784,336 @@ namespace KTNEBombSolver
                 #endregion
             }
         }
+
+        public void Memory()
+        {
+            List<int[]> positionLabelPair = new List<int[]>();
+
+            for (int i = 0; i < 5; i++)
+            {
+                int display;
+
+                // get number on display
+                while (true)
+                {
+                    Console.Write("\nEnter Number on Display: ");
+                    
+                    // Solution requires and integer between 1-4
+                    if (int.TryParse(Console.ReadLine().ToLower().Trim(), out display) && 0 < display && display < 5 )
+                    {
+                        break;
+                    }
+                }
+
+                #region Send user solution and get the number they pressed
+                // change logic for each of the 5 stages of memory
+                switch (i)
+                {
+                    #region Stage 1
+                    case 0:
+                        positionLabelPair.Add(new int[2]);
+                        if (display == 1 || display == 2)
+                        {
+                            Console.WriteLine("Press the button in the second position");
+                            // store the position of what number was pressed
+                            positionLabelPair[i][0] = 2;
+                        }
+                        else if (display == 3)
+                        {
+                            Console.WriteLine("Press the button in the third position");
+                            // store the position of what number was pressed
+                            positionLabelPair[i][0] = 3;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Press the button in the fourth position");
+                            // store the position of what number was pressed
+                            positionLabelPair[i][0] = 4; 
+                        }
+
+                        // get number user pressed
+                        while (true)
+                        {
+                            int pressedNum;
+                            Console.Write("What number was pressed: ");
+
+                            // Solution requires and integer between 1-4
+                            if (int.TryParse(Console.ReadLine().ToLower().Trim(), out pressedNum) && 0 < pressedNum && pressedNum < 5)
+                            {
+                                // store the value of what number was pressed
+                                positionLabelPair[i][1] = pressedNum; 
+                                break;
+                            }
+                        }
+
+                        break;
+                    #endregion
+
+                    #region Stage 2
+                    case 1:
+                        positionLabelPair.Add(new int[2]);
+                        if (display == 1)
+                        {
+                            Console.WriteLine("Press the button labeled 4");
+
+                            // store the value of what number was pressed
+                            positionLabelPair[i][1] = 4; 
+
+                            // get position user pressed
+                            while (true)
+                            {
+                                int pressedPos;
+                                Console.Write("What position was 4 in: ");
+
+                                // Solution requires and integer between 1-4
+                                if (int.TryParse(Console.ReadLine().ToLower().Trim(), out pressedPos) && 0 < pressedPos && pressedPos < 5)
+                                {
+                                    // store the value of what number was pressed
+                                    positionLabelPair[i][0] = pressedPos; 
+                                    break;
+                                }
+                            }
+                        }
+                        else if (display == 3)
+                        {
+                            Console.WriteLine("Press the button in the first position");
+
+                            // store the position of what number was pressed
+                            positionLabelPair[i][0] = 1; 
+
+                            // get number user pressed
+                            while (true)
+                            {
+                                int pressedNum;
+                                Console.Write("What number was pressed: ");
+
+                                // Solution requires and integer between 1-4
+                                if (int.TryParse(Console.ReadLine().ToLower().Trim(), out pressedNum) && 0 < pressedNum && pressedNum < 5)
+                                {
+                                    // store the value of what number was pressed
+                                    positionLabelPair[i][1] = pressedNum; 
+                                    break;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Press the button in position {positionLabelPair[0][0]}");
+
+                            // store the position of what number was pressed
+                            positionLabelPair[i][0] = positionLabelPair[0][0];
+
+                            // get number user pressed
+                            while (true)
+                            {
+                                int pressedNum;
+                                Console.Write("What number was pressed: ");
+
+                                // Solution requires and integer between 1-4
+                                if (int.TryParse(Console.ReadLine().ToLower().Trim(), out pressedNum) && 0 < pressedNum && pressedNum < 5)
+                                {
+                                    // store the value of what number was pressed
+                                    positionLabelPair[i][1] = pressedNum; 
+                                    break;
+                                }
+                            }
+                        }
+
+                        break;
+                    #endregion
+
+                    #region Stage 3
+                    case 2:
+                        positionLabelPair.Add(new int[2]);
+                        if (display == 1)
+                        {
+                            Console.WriteLine($"Press the button labeled {positionLabelPair[1][1]}");
+
+                            // store the value of what number was pressed
+                            positionLabelPair[i][1] = positionLabelPair[1][1];
+
+                            // get position user pressed
+                            while (true)
+                            {
+                                int pressedPos;
+                                Console.Write($"What position was {positionLabelPair[1][1]} in: ");
+
+                                // Solution requires and integer between 1-4
+                                if (int.TryParse(Console.ReadLine().ToLower().Trim(), out pressedPos) && 0 < pressedPos && pressedPos < 5)
+                                {
+                                    // store the value of what number was pressed
+                                    positionLabelPair[i][0] = pressedPos;
+                                    break;
+                                }
+                            }
+                        }
+                        else if (display == 2)
+                        {
+                            Console.WriteLine($"Press the button labeled {positionLabelPair[0][1]}");
+
+                            // store the value of what number was pressed
+                            positionLabelPair[i][1] = positionLabelPair[0][1];
+
+                            // get position user pressed
+                            while (true)
+                            {
+                                int pressedPos;
+                                Console.Write($"What position was {positionLabelPair[0][1]} in: ");
+
+                                // Solution requires and integer between 1-4
+                                if (int.TryParse(Console.ReadLine().ToLower().Trim(), out pressedPos) && 0 < pressedPos && pressedPos < 5)
+                                {
+                                    // store the value of what number was pressed
+                                    positionLabelPair[i][0] = pressedPos;
+                                    break;
+                                }
+                            }
+                        }
+                        else if (display == 3)
+                        {
+                            Console.WriteLine("Press the button in the third position");
+
+                            // store the position of what number was pressed
+                            positionLabelPair[i][0] = 3;
+
+                            // get number user pressed
+                            while (true)
+                            {
+                                int pressedNum;
+                                Console.Write("What number was pressed: ");
+
+                                // Solution requires and integer between 1-4
+                                if (int.TryParse(Console.ReadLine().ToLower().Trim(), out pressedNum) && 0 < pressedNum && pressedNum < 5)
+                                {
+                                    // store the value of what number was pressed
+                                    positionLabelPair[i][1] = pressedNum;
+                                    break;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Press the button labeled 4");
+
+                            // store the value of what number was pressed
+                            positionLabelPair[i][1] = 4;
+
+                            // get position user pressed
+                            while (true)
+                            {
+                                int pressedPos;
+                                Console.Write("What position was 4 in: ");
+
+                                // Solution requires and integer between 1-4
+                                if (int.TryParse(Console.ReadLine().ToLower().Trim(), out pressedPos) && 0 < pressedPos && pressedPos < 5)
+                                {
+                                    // store the value of what number was pressed
+                                    positionLabelPair[i][0] = pressedPos;
+                                    break;
+                                }
+                            }
+                        }
+
+                        break;
+                    #endregion
+
+                    #region Stage 4
+                    case 3:
+                        positionLabelPair.Add(new int[2]);
+                        if (display == 1)
+                        {
+                            Console.WriteLine($"Press the button in position {positionLabelPair[0][0]}");
+
+                            // store the position of what number was pressed
+                            positionLabelPair[i][0] = positionLabelPair[0][0];
+
+                            // get number user pressed
+                            while (true)
+                            {
+                                int pressedNum;
+                                Console.Write("What number was pressed: ");
+
+                                // Solution requires and integer between 1-4
+                                if (int.TryParse(Console.ReadLine().ToLower().Trim(), out pressedNum) && 0 < pressedNum && pressedNum < 5)
+                                {
+                                    // store the value of what number was pressed
+                                    positionLabelPair[i][1] = pressedNum;
+                                    break;
+                                }
+                            }
+                        }
+                        else if (display == 2)
+                        {
+                            Console.WriteLine("Press the button in the first position");
+
+                            // store the position of what number was pressed
+                            positionLabelPair[i][0] = 1;
+
+                            // get number user pressed
+                            while (true)
+                            {
+                                int pressedNum;
+                                Console.Write("What number was pressed: ");
+
+                                // Solution requires and integer between 1-4
+                                if (int.TryParse(Console.ReadLine().ToLower().Trim(), out pressedNum) && 0 < pressedNum && pressedNum < 5)
+                                {
+                                    // store the value of what number was pressed
+                                    positionLabelPair[i][1] = pressedNum;
+                                    break;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Press the button in position {positionLabelPair[1][0]}");
+
+                            // store the position of what number was pressed
+                            positionLabelPair[i][0] = positionLabelPair[1][0];
+
+                            // get number user pressed
+                            while (true)
+                            {
+                                int pressedNum;
+                                Console.Write("What number was pressed: ");
+
+                                // Solution requires and integer between 1-4
+                                if (int.TryParse(Console.ReadLine().ToLower().Trim(), out pressedNum) && 0 < pressedNum && pressedNum < 5)
+                                {
+                                    // store the value of what number was pressed
+                                    positionLabelPair[i][1] = pressedNum;
+                                    break;
+                                }
+                            }
+                        }
+
+                        break;
+                    #endregion
+
+                    #region Stage 5
+                    case 4:
+                        if (display == 1)
+                        {
+                            Console.WriteLine($"Press the button labeled {positionLabelPair[0][1]}");
+                        }
+                        else if (display == 2)
+                        {
+                            Console.WriteLine($"Press the button labeled {positionLabelPair[1][1]}");
+                        }
+                        else if (display == 3)
+                        {
+                            Console.WriteLine($"Press the button labeled {positionLabelPair[3][1]}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Press the button labeled {positionLabelPair[2][1]}");
+                        }
+
+                        break;
+                    #endregion
+                }
+                #endregion
+            }
+        }
     }
 }

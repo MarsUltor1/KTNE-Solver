@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("KTNEBombSolver")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b685733b875e92b76690f186e83b60a183fc9409")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4a6ee8b702d3a321947d974c67a6e07165868625")]
 [assembly: System.Reflection.AssemblyProductAttribute("KTNEBombSolver")]
 [assembly: System.Reflection.AssemblyTitleAttribute("KTNEBombSolver")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
