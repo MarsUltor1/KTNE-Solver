@@ -18,7 +18,7 @@
             int numBatteries = int.MinValue;
             bool numBatteriesSet = false;
 
-            string commands = "sw (simple wires) | btn (button) | kp (keypad) | ss (simon says) | wof (whos on first) | mem (memory) | quit";
+            string commands = "sw (simple wires) | btn (button) | kp (keypad) | ss (simon says) | wof (whos on first) | mem (memory) | mc (morse code) | quit";
 
             // Introduce the player
             Console.WriteLine("Welcome To \"Keep talking and Nobody Explodes\" Bombsolver, Console Version 0.0.2");
@@ -62,6 +62,10 @@
 
                     case "mem":
                         modules.Memory();
+                        break;
+
+                    case "mc":
+                        modules.MorseCode();
                         break;
 
                     case "quit":

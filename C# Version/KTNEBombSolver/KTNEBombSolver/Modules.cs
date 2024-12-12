@@ -785,6 +785,9 @@ namespace KTNEBombSolver
             }
         }
 
+        /// <summary>
+        /// Solve the "Memory" module
+        /// </summary>
         public void Memory()
         {
             List<int[]> positionLabelPair = new List<int[]>();
@@ -1113,6 +1116,198 @@ namespace KTNEBombSolver
                     #endregion
                 }
                 #endregion
+            }
+        }
+
+        /// <summary>
+        /// Solve the "Morse Code" module
+        /// </summary>
+        public void MorseCode()
+        {
+            /*
+             * beats (600) bistro (552) bombs (565) boxes (535) break (572) brick (575)
+             * shell (505) slick (522) steak (582) sting (592) strobe (545)
+             * flick (555)
+             * halls (515)
+             * leaks (542)
+             * trick (532)
+             * vector (595)
+             */
+
+            string curLetter;
+            char lastLetter;
+
+            // narrow down first letter
+            while (true)
+            {
+                Console.Write("Enter the first letter as dots and dashes (ex. -.--): ");
+                curLetter = Console.ReadLine().ToLower().Trim();
+
+                switch (curLetter)
+                {
+                    case "-...": // b needs more narrowing down
+                        lastLetter = 'b';
+                        break;
+
+                    case "...": // s needs more narrowing down
+                        lastLetter = 's';
+                        break;
+
+                    case "..-.": // f
+                        Console.WriteLine("Solution: 3.555");
+                        return;
+
+                    case "....": // h
+                        Console.WriteLine("Solution: 3.515");
+                        return;
+
+                    case ".-..": // l
+                        Console.WriteLine("Solution: 3.542");
+                        return;
+
+                    case "-": // t
+                        Console.WriteLine("Solution: 3.532");
+                        return;
+
+                    case "...-": // v
+                        Console.WriteLine("Solution: 3.595");
+                        return;
+
+                    default:
+                        Console.WriteLine("ERROR: input could not be parsed please try again");
+                        continue;
+                }
+
+                break;
+            }
+
+            /*
+             * beats (600) bistro (552) bombs (565) boxes (535) break (572) brick (575)
+             * shell (505) slick (522) steak (582) sting (592) strobe (545)
+             */
+
+            // narrow down solution using second letter
+            while (true)
+            {
+                Console.Write("Enter the second letter as dots and dashes: ");
+                curLetter = Console.ReadLine().ToLower().Trim();
+
+                if (lastLetter == 'b')
+                {
+                    switch (curLetter)
+                    {
+                        case ".": // e
+                            Console.WriteLine("Solution: 3.600");
+                            return;
+
+                        case "..": // i
+                            Console.WriteLine("Solution: 3.552");
+                            return;
+
+                        case "---": // o needs more information
+                            lastLetter = 'o';
+                            break;
+
+                        case ".-.": // r needs more information
+                            lastLetter = 'r';
+                            break;
+
+                        default:
+                            Console.WriteLine("ERROR: input could not be parsed please try again");
+                            continue;
+                    }
+                }
+                else
+                {
+                    switch (curLetter)
+                    {
+                        case "....": // h
+                            Console.WriteLine("Solution: 505");
+                            return;
+
+                        case ".-..": // l
+                            Console.WriteLine("Solution: 522");
+                            break;
+
+                        case "-": // t needs more information
+                            lastLetter = 't';
+                            break;
+
+                        default:
+                            Console.WriteLine("ERROR: input could not be parsed please try again");
+                            continue;
+                    }
+                }
+
+                break;
+            }
+
+            /*
+             * bombs (565) boxes (535) break (572) brick (575)
+             * steak (582) sting (592) strobe (545)
+             */
+
+            // Solve the puzzle with third letter
+            while (true)
+            {
+                Console.Write("Enter the third letter as dots and dashes: ");
+                curLetter = Console.ReadLine().ToLower().Trim();
+
+                if (lastLetter == 'o')
+                {
+                    switch (curLetter)
+                    {
+                        case "--": // m
+                            Console.WriteLine("Solution: 3.565");
+                            return;
+
+                        case "-..-": // x
+                            Console.WriteLine("Solution: 3.535");
+                            return;
+
+                        default:
+                            Console.WriteLine("ERROR: input could not be parsed please try again");
+                            continue;
+                    }
+                }
+                else if (lastLetter == 'r')
+                {
+                    switch (curLetter)
+                    {
+                        case ".": // m
+                            Console.WriteLine("Solution: 3.572");
+                            return;
+
+                        case "..": // x
+                            Console.WriteLine("Solution: 3.575");
+                            return;
+
+                        default:
+                            Console.WriteLine("ERROR: input could not be parsed please try again");
+                            continue;
+                    }
+                }
+                else
+                {
+                    switch (curLetter)
+                    {
+                        case ".": // m
+                            Console.WriteLine("Solution: 3.582");
+                            return;
+
+                        case "..": // x
+                            Console.WriteLine("Solution: 3.592");
+                            return;
+
+                        case ".-.":
+                            Console.WriteLine("Solution: 3.545");
+                            return;
+
+                        default:
+                            Console.WriteLine("ERROR: input could not be parsed please try again");
+                            continue;
+                    }
+                }
             }
         }
     }
