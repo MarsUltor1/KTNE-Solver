@@ -15,6 +15,7 @@ namespace KTNEBombSolver
         Blue,
         Black,
         White,
+        Green,
         Null
     }
 
@@ -292,6 +293,203 @@ namespace KTNEBombSolver
         }
 
         /// <summary>
+        /// Solve the "Keypad" Module
+        /// </summary>
+        public void Keypad()
+        {
+            // Setup the six sollution lists
+            List<Symbol> columb1 = new List<Symbol>() { Symbol.Balloon, Symbol.AT, Symbol.UpsideDownY, Symbol.SquigglyN, Symbol.SquidKnife, Symbol.HookN, Symbol.LeftC };
+            List<Symbol> columb2 = new List<Symbol>() { Symbol.Euro, Symbol.Balloon, Symbol.LeftC, Symbol.Cursive, Symbol.HollowStar, Symbol.SquigglyN, Symbol.QuestionMark };
+            List<Symbol> columb3 = new List<Symbol>() { Symbol.Copyright, Symbol.Pumpkin, Symbol.Cursive, Symbol.DoubleK, Symbol.MeltedThree, Symbol.UpsideDownY, Symbol.HollowStar };
+            List<Symbol> columb4 = new List<Symbol>() { Symbol.Six, Symbol.Paragraph, Symbol.BT, Symbol.SquidKnife, Symbol.DoubleK, Symbol.QuestionMark, Symbol.SmileyFace };
+            List<Symbol> columb5 = new List<Symbol>() { Symbol.Pitchfork, Symbol.SmileyFace, Symbol.BT, Symbol.RightC, Symbol.Paragraph, Symbol.Dragon, Symbol.FilledStar };
+            List<Symbol> columb6 = new List<Symbol>() { Symbol.Six, Symbol.Euro, Symbol.Tracks, Symbol.AE, Symbol.Pitchfork, Symbol.NWithHat, Symbol.Omega };
+            List<List<Symbol>> solutions = new List<List<Symbol>>() { columb1, columb2, columb3, columb4, columb5, columb6 } ;
+
+            
+            List<string> symbolsString = new List<string>();
+            List<Symbol> userSymbols = new List<Symbol>();
+            int solutionCol = int.MinValue;
+
+            while (true)
+            {
+                #region Let user input their symbols
+                Console.WriteLine("\nSymbols: Copyright | FilledStar | HollowStar | SmileyFace | " +
+                                "DoubleK | Omega | SquidKnife | Pumpkin | HookN | Six | SquigglyN | " +
+                                "AT | AE | MeltedThree | Euro | NWithHat | Dragon | QuestionMark | " +
+                                "Paragraph | RightC | LeftC | Pitchfork | Cursive | Tracks | " +
+                                "Balloon | UpsideDownY | BT");
+                Console.Write("Enter your 4 symbols: ");
+                string input = Console.ReadLine().ToLower();
+
+                // Split wires into list
+                symbolsString.Clear();
+                symbolsString.AddRange(input.Split(' '));
+
+                // Check for correct number of symbols
+                if (symbolsString.Count != 4)
+                {
+                    Console.Write("ERROR: Invalid number of symbols, enter 4 symbols. Enter [C] to continue or [X] To Quit. ");
+                    string cont = Console.ReadLine().ToLower();
+                    if (cont == "x") return;
+                    continue;
+                }
+
+                // change list into enums
+                userSymbols.Clear();
+                foreach (string symbol in symbolsString)
+                {
+                    switch(symbol)
+                    {
+                        case "copyright": userSymbols.Add(Symbol.Copyright); break;
+                        case "filledstar": userSymbols.Add(Symbol.FilledStar); break;
+                        case "hollowstar": userSymbols.Add(Symbol.HollowStar); break;
+                        case "smileyface": userSymbols.Add(Symbol.SmileyFace); break;
+                        case "doublek": userSymbols.Add(Symbol.DoubleK); break;
+                        case "omega": userSymbols.Add(Symbol.Omega); break;
+                        case "squidknife": userSymbols.Add(Symbol.SquidKnife); break;
+                        case "pumpkin": userSymbols.Add(Symbol.Pumpkin); break;
+                        case "hookn": userSymbols.Add(Symbol.HookN); break;
+                        case "six": userSymbols.Add(Symbol.Six); break;
+                        case "squigglyn": userSymbols.Add(Symbol.SquigglyN); break;
+                        case "at": userSymbols.Add(Symbol.AT); break;
+                        case "ae": userSymbols.Add(Symbol.AE); break;
+                        case "meltedthree": userSymbols.Add(Symbol.MeltedThree); break;
+                        case "euro": userSymbols.Add(Symbol.Euro); break;
+                        case "nwithhat": userSymbols.Add(Symbol.NWithHat); break;
+                        case "dragon": userSymbols.Add(Symbol.Dragon); break;
+                        case "questionmark": userSymbols.Add(Symbol.QuestionMark); break;
+                        case "paragraph": userSymbols.Add(Symbol.Paragraph); break;
+                        case "rightc": userSymbols.Add(Symbol.RightC); break;
+                        case "leftc": userSymbols.Add(Symbol.LeftC); break;
+                        case "pitchfork": userSymbols.Add(Symbol.Pitchfork); break;
+                        case "cursive": userSymbols.Add(Symbol.Cursive); break;
+                        case "tracks": userSymbols.Add(Symbol.Tracks); break;
+                        case "balloon": userSymbols.Add(Symbol.Balloon); break;
+                        case "upsidedowny": userSymbols.Add(Symbol.UpsideDownY); break;
+                        case "bt": userSymbols.Add(Symbol.BT); break;
+
+                        default:
+                            Console.WriteLine($"ERROR: Invalid symbol, {symbol} is not a valid symbol. Enter [C] to continue or [X] To Quit. ");
+                            string cont = Console.ReadLine().ToLower();
+                            if (cont == "x") return;
+                            continue;
+                    }
+                }
+                #endregion
+
+                // Figure out which list contains all four symbols
+                
+                for (int i = 0; i < 6; i++)
+                {
+                    // check if solution columb contains all 4 user symbols
+                    if (solutions[i].Contains(userSymbols[0]) && solutions[i].Contains(userSymbols[1]) && solutions[i].Contains(userSymbols[2]) && solutions[i].Contains(userSymbols[3]))
+                    {
+                        solutionCol = i;
+                        break;
+                    }
+                }
+
+                // check that a solution columb was found
+                if (solutionCol == int.MinValue)
+                {
+                    Console.WriteLine("ERROR: Solution does not exist, please double check your symbols and try again. Enter [C] to continue or [X] To Quit. ");
+                    string cont = Console.ReadLine().ToLower();
+                    if (cont == "x") return;
+                    continue;
+                }
+
+                break;
+            }
+
+            
+            // Figure out the order of the symbols
+            List<Symbol> solutionOrder = new List<Symbol>();
+            foreach (Symbol sym in solutions[solutionCol])
+            {
+                if (userSymbols.Contains(sym))
+                {
+                    solutionOrder.Add(sym);
+                }
+            }
+
+            // Send order of symbols to solve the module
+            Console.WriteLine($"The Solution is: {solutionOrder[0]}, {solutionOrder[1]}, {solutionOrder[2]}, {solutionOrder[3]}");
+        }
+
+        /// <summary>
+        /// Solve "Simon Says" Module
+        /// </summary>
+        /// <param name="hasVowel">Does the serial number contain a vowel</param>
+        /// <param name="numStrikes">Number of strikes on the bomb</param>
+        public void SimonSays(ref bool hasVowel, ref int numStrikes)
+        {
+            #region Set Solution Dictionary
+            // Setup possible solution dictionarys
+            Dictionary<Color, Color> vowel0Strikes = new Dictionary<Color, Color>() { { Color.Red, Color.Blue }, {Color.Blue, Color.Red }, {Color.Green, Color.Yellow }, { Color.Yellow, Color.Green } };
+            Dictionary<Color, Color> vowel1Strikes = new Dictionary<Color, Color>() { { Color.Red, Color.Yellow }, { Color.Blue, Color.Green }, { Color.Green, Color.Blue }, { Color.Yellow, Color.Red } };
+            Dictionary<Color, Color> vowel2Strikes = new Dictionary<Color, Color>() { { Color.Red, Color.Green }, { Color.Blue, Color.Red }, { Color.Green, Color.Yellow }, { Color.Yellow, Color.Blue } };
+            Dictionary<Color, Color> noVowel0Strikes = new Dictionary<Color, Color>() { { Color.Red, Color.Blue }, { Color.Blue, Color.Yellow }, { Color.Green, Color.Green }, { Color.Yellow, Color.Red } };
+            Dictionary<Color, Color> noVowel1Strikes = new Dictionary<Color, Color>() { { Color.Red, Color.Red }, {Color.Blue, Color.Blue }, {Color.Green, Color.Yellow }, { Color.Yellow, Color.Green } };
+            Dictionary<Color, Color> noVowel2Strikes = new Dictionary<Color, Color>() { { Color.Red, Color.Yellow }, {Color.Blue, Color.Green }, {Color.Green, Color.Blue }, { Color.Yellow, Color.Red } };
+            Dictionary<Color, Color> solutionDict = new Dictionary<Color, Color>();
+
+            // Set correct solution dictionary based on serial number and number of strikes
+            if (hasVowel)
+            {
+                switch (numStrikes)
+                {
+                    case 0: solutionDict = vowel0Strikes; break;
+                    case 1: solutionDict = vowel1Strikes; break;
+                    case 2: solutionDict = vowel2Strikes; break;
+                }
+            }
+            else
+            {
+                switch (numStrikes)
+                {
+                    case 0: solutionDict = noVowel0Strikes; break;
+                    case 1: solutionDict = noVowel1Strikes; break;
+                    case 2: solutionDict = noVowel2Strikes; break;
+                }
+            }
+            #endregion
+
+            // Loop until Simon is solved
+            bool isSolved = false;
+            List<Color> sequence = new List<Color>();
+            while (!isSolved)
+            {
+                // Have user give the next color in sequence
+                Console.WriteLine("\nColors: b (blue) | r (red) | y (yellow) | g (green)");
+                Console.Write("Enter the last color to be shown. Or if the module is disarmed enter d (done/disarmed): ");
+                string input = Console.ReadLine().ToLower().Trim();
+
+                // Add input color to sequence list
+                switch (input)
+                {
+                    case "b": sequence.Add(Color.Blue); break;
+                    case "r": sequence.Add(Color.Red); break;
+                    case "y": sequence.Add(Color.Yellow); break;
+                    case "g": sequence.Add(Color.Green); break;
+                    case "d": isSolved = true; continue;
+
+                    default:
+                        Console.WriteLine("ERROR: Invalid color input pleas try again");
+                        continue;
+                }
+
+                // Output solution to current step of simon
+                Console.Write("Step Solution: ");
+                foreach (Color c in sequence)
+                {
+                    Console.Write($"{solutionDict[c]}, ");
+                }
+                Console.WriteLine();
+            }
+        }
+
+        /// <summary>
         /// Solve the "Who's on First" Module
         /// </summary>
         public void WhosOnFirst()
@@ -351,7 +549,7 @@ namespace KTNEBombSolver
                     }
                     else
                     {
-                        Console.WriteLine("ERROR: Invalid Word, Try Again. Enter [C] to continue or [X] To Quit.");
+                        Console.Write("ERROR: Invalid Word, Try Again. Enter [C] to continue or [X] To Quit. ");
                         string cont = Console.ReadLine().ToLower();
 
                         if (cont == "x")
@@ -571,7 +769,7 @@ namespace KTNEBombSolver
                             break;
 
                         default:
-                            Console.WriteLine("ERROR: Invalid Word, Try Again. Enter [C] to continue or [X] To Quit.");
+                            Console.Write("ERROR: Invalid Word, Try Again. Enter [C] to continue or [X] To Quit. ");
                             string cont = Console.ReadLine().ToLower();
 
                             if (cont == "x")
@@ -585,131 +783,6 @@ namespace KTNEBombSolver
                 }
                 #endregion
             }
-        }
-
-        /// <summary>
-        /// Solve the "Keypad" Module
-        /// </summary>
-        public void Keypad()
-        {
-            // Setup the six sollution lists
-            List<Symbol> columb1 = new List<Symbol>() { Symbol.Balloon, Symbol.AT, Symbol.UpsideDownY, Symbol.SquigglyN, Symbol.SquidKnife, Symbol.HookN, Symbol.LeftC };
-            List<Symbol> columb2 = new List<Symbol>() { Symbol.Euro, Symbol.Balloon, Symbol.LeftC, Symbol.Cursive, Symbol.HollowStar, Symbol.SquigglyN, Symbol.QuestionMark };
-            List<Symbol> columb3 = new List<Symbol>() { Symbol.Copyright, Symbol.Pumpkin, Symbol.Cursive, Symbol.DoubleK, Symbol.MeltedThree, Symbol.UpsideDownY, Symbol.HollowStar };
-            List<Symbol> columb4 = new List<Symbol>() { Symbol.Six, Symbol.Paragraph, Symbol.BT, Symbol.SquidKnife, Symbol.DoubleK, Symbol.QuestionMark, Symbol.SmileyFace };
-            List<Symbol> columb5 = new List<Symbol>() { Symbol.Pitchfork, Symbol.SmileyFace, Symbol.BT, Symbol.RightC, Symbol.Paragraph, Symbol.Dragon, Symbol.FilledStar };
-            List<Symbol> columb6 = new List<Symbol>() { Symbol.Six, Symbol.Euro, Symbol.Tracks, Symbol.AE, Symbol.Pitchfork, Symbol.NWithHat, Symbol.Omega };
-            List<List<Symbol>> solutions = new List<List<Symbol>>() { columb1, columb2, columb3, columb4, columb5, columb6 } ;
-
-            
-            List<string> symbolsString = new List<string>();
-            List<Symbol> userSymbols = new List<Symbol>();
-            int solutionCol = int.MinValue;
-
-            while (true)
-            {
-                #region Let user input their symbols
-                Console.WriteLine("Symbols: Copyright | FilledStar | HollowStar | SmileyFace | " +
-                                "DoubleK | Omega | SquidKnife | Pumpkin | HookN | Six | SquigglyN | " +
-                                "AT | AE | MeltedThree | Euro | NWithHat | Dragon | QuestionMark | " +
-                                "Paragraph | RightC | LeftC | Pitchfork | Cursive | Tracks | " +
-                                "Balloon | UpsideDownY | BT");
-                Console.Write("Enter your 4 symbols: ");
-                string input = Console.ReadLine().ToLower();
-
-                // Split wires into list
-                symbolsString.Clear();
-                symbolsString.AddRange(input.Split(' '));
-
-                // Check for correct number of symbols
-                if (symbolsString.Count != 4)
-                {
-                    Console.WriteLine("ERROR: Invalid number of symbols, enter 4 symbols. Enter [C] to continue or [X] To Quit. ");
-                    string cont = Console.ReadLine().ToLower();
-                    if (cont == "x") return;
-                    continue;
-                }
-
-                // change list into enums
-                userSymbols.Clear();
-                foreach (string symbol in symbolsString)
-                {
-                    switch(symbol)
-                    {
-                        case "copyright": userSymbols.Add(Symbol.Copyright); break;
-                        case "filledstar": userSymbols.Add(Symbol.FilledStar); break;
-                        case "hollowstar": userSymbols.Add(Symbol.HollowStar); break;
-                        case "smileyface": userSymbols.Add(Symbol.SmileyFace); break;
-                        case "doublek": userSymbols.Add(Symbol.DoubleK); break;
-                        case "omega": userSymbols.Add(Symbol.Omega); break;
-                        case "squidknife": userSymbols.Add(Symbol.SquidKnife); break;
-                        case "pumpkin": userSymbols.Add(Symbol.Pumpkin); break;
-                        case "hookn": userSymbols.Add(Symbol.HookN); break;
-                        case "six": userSymbols.Add(Symbol.Six); break;
-                        case "squigglyn": userSymbols.Add(Symbol.SquigglyN); break;
-                        case "at": userSymbols.Add(Symbol.AT); break;
-                        case "ae": userSymbols.Add(Symbol.AE); break;
-                        case "meltedthree": userSymbols.Add(Symbol.MeltedThree); break;
-                        case "euro": userSymbols.Add(Symbol.Euro); break;
-                        case "nwithhat": userSymbols.Add(Symbol.NWithHat); break;
-                        case "dragon": userSymbols.Add(Symbol.Dragon); break;
-                        case "questionmark": userSymbols.Add(Symbol.QuestionMark); break;
-                        case "paragraph": userSymbols.Add(Symbol.Paragraph); break;
-                        case "rightc": userSymbols.Add(Symbol.RightC); break;
-                        case "leftc": userSymbols.Add(Symbol.LeftC); break;
-                        case "pitchfork": userSymbols.Add(Symbol.Pitchfork); break;
-                        case "cursive": userSymbols.Add(Symbol.Cursive); break;
-                        case "tracks": userSymbols.Add(Symbol.Tracks); break;
-                        case "balloon": userSymbols.Add(Symbol.Balloon); break;
-                        case "upsidedowny": userSymbols.Add(Symbol.UpsideDownY); break;
-                        case "bt": userSymbols.Add(Symbol.BT); break;
-
-                        default:
-                            Console.WriteLine($"ERROR: Invalid symbol, {symbol} is not a valid symbol. Enter [C] to continue or [X] To Quit. ");
-                            string cont = Console.ReadLine().ToLower();
-                            if (cont == "x") return;
-                            continue;
-                    }
-                }
-                #endregion
-
-                // Figure out which list contains all four symbols
-                
-                for (int i = 0; i < 6; i++)
-                {
-                    // check if solution columb contains all 4 user symbols
-                    if (solutions[i].Contains(userSymbols[0]) && solutions[i].Contains(userSymbols[1]) && solutions[i].Contains(userSymbols[2]) && solutions[i].Contains(userSymbols[3]))
-                    {
-                        solutionCol = i;
-                        break;
-                    }
-                }
-
-                // check that a solution columb was found
-                if (solutionCol == int.MinValue)
-                {
-                    Console.WriteLine("ERROR: Solution does not exist, please double check your symbols and try again. Enter [C] to continue or [X] To Quit. ");
-                    string cont = Console.ReadLine().ToLower();
-                    if (cont == "x") return;
-                    continue;
-                }
-
-                break;
-            }
-
-            
-            // Figure out the order of the symbols
-            List<Symbol> solutionOrder = new List<Symbol>();
-            foreach (Symbol sym in solutions[solutionCol])
-            {
-                if (userSymbols.Contains(sym))
-                {
-                    solutionOrder.Add(sym);
-                }
-            }
-
-            // Send order of symbols to solve the module
-            Console.WriteLine($"The Solution is: {solutionOrder[0]}, {solutionOrder[1]}, {solutionOrder[2]}, {solutionOrder[3]}");
         }
     }
 }
