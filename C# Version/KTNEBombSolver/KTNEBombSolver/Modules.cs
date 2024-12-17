@@ -1427,5 +1427,87 @@ namespace KTNEBombSolver
                 #endregion
             }
         }
+
+        public void WireSequences()
+        {
+            // Trackers for which wire occurence each color is
+            int numRed = 0;
+            int numBlue = 0;
+            int numBlack = 0;
+
+            // Solution lookup tables
+            string[] redSolutions = new string[9] { "Cut if connected to C", "Cut if connected to B", "Cut if connected to A", "Cut if connected to A or C", 
+                "Cut if connected to B", "Cut if connected to A or C", "Cut", "Cut if connected to A or B", "Cut if connected to B" };
+            string[] blueSolutions = new string[9] { "Cut if connected to B", "Cut if connected to A or C", "Cut if connected to B", "Cut if connected to A",
+                "Cut if connected to B", "Cut if connected to B or C", "Cut if Connected to C", "Cut if connected to A or C", "Cut if connected to A" };
+            string[] blackSolutions = new string[9] { "Cut", "Cut if connected to A or C", "Cut if connected to B", "Cut if connected to A or C",
+                "Cut if connected to B", "Cut if connected to B or C", "Cut if connected to A or B", "Cut if connected to C", "Cut if connected to C" };
+
+            // Run through solver for each of the 4 panels
+            List<Color> wires = new List<Color>();
+            for (int i = 0; i < 4; i++)
+            {
+                wires.Clear();
+
+                // Get input from user
+                while (true)
+                {
+                    Console.WriteLine("\nColors: r (Red) | b (Blue) | bl (Black)");
+                    Console.Write("Enter all the wire colors in order seperated by a space (ex. r r bl): ");
+                    string input = Console.ReadLine().ToLower().Trim();
+
+                    string[] inputList = input.Split(' ');
+                    bool allValidColors = true;
+
+                    // parse user input into color enums
+                    foreach (string s in inputList)
+                    {
+                        switch (s)
+                        {
+                            case "r":
+                                wires.Add(Color.Red);
+                                break;
+
+                            case "b":
+                                wires.Add(Color.Blue);
+                                break;
+
+                            case "bl":
+                                wires.Add(Color.Black);
+                                break;
+
+                            default:
+                                Console.WriteLine("Error: Invalid input please try again.");
+                                allValidColors = false;
+                                break;
+                        }
+                    }
+
+                    if (allValidColors) break;
+                }
+
+                // Output current steps solution
+                foreach (Color wire in wires)
+                {
+                    switch (wire) 
+                    { 
+                        case Color.Red:
+                            Console.WriteLine(redSolutions[numRed]);
+                            numRed++;
+                            break;
+
+                        case Color.Blue:
+                            Console.WriteLine(blueSolutions[numBlue]);
+                            numBlue++;
+                            break;
+
+                        case Color.Black:
+                            Console.WriteLine(blackSolutions[numBlack]);
+                            numBlack++;
+                            break;
+                    }
+                }
+            }
+        }
     }
 }

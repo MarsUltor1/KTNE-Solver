@@ -21,7 +21,7 @@
 
             int numStrikes = 0;
             
-            string commands = "sw (simple wires) | btn (button) | kp (keypad) | ss (simon says) | wof (whos on first) | mem (memory) | mc (morse code) | cw (complicated wires) | quit";
+            string commands = "sw (simple wires) | btn (button) | kp (keypad) | ss (simon says) | wof (whos on first) | mem (memory) | mc (morse code) | cw (complicated wires) | ws (wire sequences) | quit";
 
             // Introduce the player
             Console.WriteLine("Welcome To \"Keep talking and Nobody Explodes\" Bombsolver, Console Version 0.0.2");
@@ -87,6 +87,10 @@
 
                         // Call module solving function
                         modules.ComplicatedWires(lastSerial, parallelPort, numBatteries);
+                        break;
+
+                    case "ws":
+                        modules.WireSequences();
                         break;
 
                     case "quit":
